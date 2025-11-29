@@ -57,11 +57,11 @@ class AddAlarmActivity : AppCompatActivity() {
             val horaFormatada = String.format("%02d:%02d", hour, minute)
 
             val storage = AlarmStorage(this)
-            storage.salvarAlarme(horaFormatada)
+            storage.salvarAlarme(horaFormatada, somSelecionado?.toString())
 
             // Liga o alarme automaticamente
             val scheduler = AlarmScheduler(this)
-            scheduler.ligarAlarme(hour, minute)
+            scheduler.ligarAlarme(hour, minute, somSelecionado)
 
             Toast.makeText(
                 this,

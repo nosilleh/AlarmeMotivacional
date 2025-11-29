@@ -9,7 +9,7 @@ import com.example.alarmemotivacional.R
 import com.google.android.material.materialswitch.MaterialSwitch
 
 class AlarmAdapter(
-    private val lista: List<String>
+    private val lista: List<AlarmData>
 ) : RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>() {
 
     class AlarmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,9 +25,9 @@ class AlarmAdapter(
     }
 
     override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
-        val horaCompleta = lista[position] // Ex: “07:30”
-        holder.textHora.text = horaCompleta
-        holder.textLabel.text = "Ativo"
+        val alarmData = lista[position]
+        holder.textHora.text = alarmData.hora // Ex: “07:30”
+        holder.textLabel.text = alarmData.soundUri?.let { "Som personalizado" } ?: "Som padrão"
 
         holder.switchAtivo.isChecked = true
     }
