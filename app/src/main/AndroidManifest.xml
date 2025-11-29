@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Permissão para alarmes exatos -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <!-- Permite tocar som mesmo com tela bloqueada -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <!-- Permite serviços em primeiro plano (alarme tocando) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <!-- Acesso à galeria para pegar o vídeo motivacional -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!-- Necessário a partir do Android 13+ para mostrar notificações -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,21 +26,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlarmeMotivacional">
+
+        <!-- Activity para criar novo alarme -->
         <activity
             android:name=".ui.alarms.AddAlarmActivity"
             android:exported="false" />
+
+        <!-- Activity do vídeo motivacional -->
+        <activity
+            android:name=".ui.alarms.VideoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AlarmeMotivacional.NoActionBar"/>
+
+        <!-- Activity principal / alarme disparado -->
         <activity
             android:name=".ui.alarms.AlarmActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Receiver que recebe o alarme na hora marcada -->
         <receiver
             android:name=".ui.alarms.AlarmReceiver"
             android:exported="true" />
+
+        <!-- Service responsável pelo pré-toque (som do alarme) -->
+        <service
+            android:name=".ui.alarms.AlarmService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+        <!-- Receiver que reativa alarmes após reiniciar o dispositivo -->
+        <receiver
+            android:name=".ui.alarms.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
