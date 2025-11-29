@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".ui.alarms.AlarmActivity">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alarmes"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentTop="true" />
+
+    <!-- RecyclerView para listar alarmes -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAlarmes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/textTitulo"
+        android:layout_above="@id/fabAdd"
+        android:layout_marginTop="16dp"
+        android:paddingBottom="16dp"
+        android:visibility="gone" />
+
+    <!-- Texto quando não existir alarme -->
+    <TextView
+        android:id="@+id/textEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nenhum alarme criado"
+        android:textSize="16sp"
+        android:textColor="#AAAAAA"
+        android:layout_centerInParent="true" />
+
+    <!-- Botão flutuante + -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:tint="#FFFFFF" />
+
+</RelativeLayout>

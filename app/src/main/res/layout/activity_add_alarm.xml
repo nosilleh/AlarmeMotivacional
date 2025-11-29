@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".ui.alarms.AddAlarmActivity">
+
+    <!-- Título da tela -->
+    <TextView
+        android:id="@+id/textAddTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Novo Alarme"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Texto guia -->
+    <TextView
+        android:id="@+id/textInstruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecione o horário:"
+        android:textSize="16sp"
+        android:textColor="#DDDDDD"
+        app:layout_constraintTop_toBottomOf="@id/textAddTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <!-- TimePicker -->
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textInstruction"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <!-- INÍCIO DO TRECHO NOVO: seleção de som do alarme -->
+    <TextView
+        android:id="@+id/textSoundSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Som selecionado: padrão"
+        android:textColor="#CCCCCC"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/timePicker"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/btnSelectSound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selecionar som"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/textSoundSelected"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#03DAC5"
+        android:textColor="#000000" />
+    <!-- FIM DO TRECHO NOVO -->
+    <Button
+        android:id="@+id/btnSelectSystemSound"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Som do sistema"
+        android:backgroundTint="#7F39FB"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/timePicker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnSelectMusic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Escolher música"
+        android:backgroundTint="#5E35B1"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnSelectSystemSound"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textSoundSelected"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nenhum som selecionado"
+        android:textColor="#CCCCCC"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/btnSelectMusic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botão salvar -->
+    <Button
+        android:id="@+id/btnSaveAlarm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Salvar alarme"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="#7F39FB"
+        android:textColor="#FFFFFF" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
