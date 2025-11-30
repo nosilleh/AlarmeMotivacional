@@ -1,11 +1,8 @@
 package com.example.alarmemotivacional.ui.alarms
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
-import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.example.alarmemotivacional.R
@@ -13,11 +10,6 @@ import com.example.alarmemotivacional.R
 class AlarmService : Service() {
 
     private var player: MediaPlayer? = null
-
-    override fun onCreate() {
-        super.onCreate()
-        createNotificationChannel()
-    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
@@ -28,7 +20,7 @@ class AlarmService : Service() {
             }
         }
 
-        val notification = NotificationCompat.Builder(this, "alarm_channel")
+        val notification = NotificationCompat.Builder(this, NotificationHelper.CHANNEL_ID)
             .setContentTitle("Alarme tocando")
             .setContentText("Toque para abrir o vídeo motivacional")
             .setSmallIcon(R.mipmap.ic_launcher)
@@ -48,16 +40,4 @@ class AlarmService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "alarm_channel",
-                "Alarme Motivacional",
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            val manager = getSystemService(NotificationManager::class.java)
-            manager?.createNotificationChannel(channel)
-        }
-    }
 }
