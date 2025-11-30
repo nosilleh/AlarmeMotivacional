@@ -48,11 +48,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Receiver que recebe o alarme na hora marcada -->
-        <receiver
-            android:name=".ui.alarms.AlarmReceiver"
-            android:exported="true" />
-
         <!-- Service responsável pelo pré-toque (som do alarme) -->
         <service
             android:name=".ui.alarms.AlarmService"

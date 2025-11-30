@@ -3,4 +3,8 @@
 
     <string name="exemplo_hora">07:30</string>
     <string name="exemplo_label">Despertar</string>
+
+    <string name="alarm_notification_title">Alarme motivacional tocando</string>
+    <string name="alarm_notification_text">Toque para abrir sua motivação</string>
+    <string name="alarm_notification_dismiss">Dispensar</string>
 </resources>
