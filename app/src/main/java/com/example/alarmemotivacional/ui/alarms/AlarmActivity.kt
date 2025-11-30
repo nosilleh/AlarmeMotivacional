@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.alarmemotivacional.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.example.alarmemotivacional.util.MiuiHelper
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class AlarmActivity : AppCompatActivity() {
 
