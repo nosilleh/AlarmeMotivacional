@@ -3,4 +3,10 @@
 
     <string name="exemplo_hora">07:30</string>
     <string name="exemplo_label">Despertar</string>
+    <string name="sound_selected">Som selecionado: %1$s</string>
+    <string name="no_sound">Sem som definido</string>
+    <string name="alarm_active">Ativo</string>
+    <string name="alarm_inactive">Desativado</string>
+    <string name="edit_alarm">Editar alarme</string>
+    <string name="delete_alarm">Excluir alarme</string>
 </resources>

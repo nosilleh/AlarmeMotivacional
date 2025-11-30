@@ -15,9 +15,17 @@ import com.example.alarmemotivacional.R
 class AddAlarmActivity : AppCompatActivity() {
 
     private var somSelecionado: Uri? = null
+    private var editingAlarmId: Int? = null
+    private var editingActive: Boolean = true
 
     companion object {
         private const val REQUEST_PICK_RINGTONE = 1001
+
+        const val EXTRA_ALARM_ID = "extra_alarm_id"
+        const val EXTRA_ALARM_HOUR = "extra_alarm_hour"
+        const val EXTRA_ALARM_MINUTE = "extra_alarm_minute"
+        const val EXTRA_ALARM_SOUND = "extra_alarm_sound"
+        const val EXTRA_ALARM_ACTIVE = "extra_alarm_active"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +38,19 @@ class AddAlarmActivity : AppCompatActivity() {
         val btnSelectSound = findViewById<Button>(R.id.btnSelectSound)
         val textSoundSelected = findViewById<TextView>(R.id.textSoundSelected)
 
-        // ---------------- SELECTOR DE SOM NATIVO ----------------
+        editingAlarmId = intent.getIntExtra(EXTRA_ALARM_ID, -1).takeIf { it != -1 }
+        editingActive = intent.getBooleanExtra(EXTRA_ALARM_ACTIVE, true)
+
+        val hourExtra = intent.getIntExtra(EXTRA_ALARM_HOUR, timePicker.hour)
+        val minuteExtra = intent.getIntExtra(EXTRA_ALARM_MINUTE, timePicker.minute)
+        timePicker.hour = hourExtra
+        timePicker.minute = minuteExtra
+
+        intent.getStringExtra(EXTRA_ALARM_SOUND)?.let { sound ->
+            somSelecionado = Uri.parse(sound)
+            textSoundSelected.text = getString(R.string.sound_selected, sound)
+        }
+
         btnSelectSound.setOnClickListener {
             val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
 
@@ -48,7 +68,6 @@ class AddAlarmActivity : AppCompatActivity() {
             startActivityForResult(intent, REQUEST_PICK_RINGTONE)
         }
 
-        // ---------------- SALVAR ALARME ----------------
         btnSave.setOnClickListener {
 
             val hour = timePicker.hour
@@ -57,11 +76,21 @@ class AddAlarmActivity : AppCompatActivity() {
             val horaFormatada = String.format("%02d:%02d", hour, minute)
 
             val storage = AlarmStorage(this)
-            storage.salvarAlarme(horaFormatada)
+            val id = editingAlarmId ?: AlarmStorage.gerarId()
+            val alarm = AlarmData(
+                id = id,
+                hour = hour,
+                minute = minute,
+                soundUri = somSelecionado?.toString(),
+                active = editingActive
+            )
+            storage.salvarOuAtualizar(alarm)
 
-            // Liga o alarme automaticamente
             val scheduler = AlarmScheduler(this)
-            scheduler.ligarAlarme(hour, minute)
+            scheduler.desligarAlarme(id)
+            if (alarm.active) {
+                scheduler.ligarAlarme(alarm)
+            }
 
             Toast.makeText(
                 this,
@@ -74,7 +103,6 @@ class AddAlarmActivity : AppCompatActivity() {
         }
     }
 
-    // ---------------- RESULTADO DO PICKER DE SOM ----------------
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -88,7 +116,7 @@ class AddAlarmActivity : AppCompatActivity() {
                 val textSound = findViewById<TextView>(R.id.textSoundSelected)
                 val title = RingtoneManager.getRingtone(this, uri).getTitle(this)
 
-                textSound.text = "Som selecionado: $title"
+                textSound.text = getString(R.string.sound_selected, title)
             }
         }
     }

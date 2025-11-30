@@ -11,8 +11,9 @@ class BootReceiver : BroadcastReceiver() {
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
             Toast.makeText(context, "Sistema reiniciado — restaurando alarmes", Toast.LENGTH_LONG).show()
 
-            // Aqui você vai restaurar alarmes salvos no banco futuramente.
-            // No momento, deixaremos apenas o Toast para confirmar que o receiver funciona.
+            val storage = AlarmStorage(context)
+            val scheduler = AlarmScheduler(context)
+            storage.getAlarmes().filter { it.active }.forEach { scheduler.ligarAlarme(it) }
         }
     }
 }

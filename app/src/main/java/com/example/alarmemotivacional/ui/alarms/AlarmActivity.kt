@@ -20,6 +20,9 @@ class AlarmActivity : AppCompatActivity() {
     private lateinit var textEmpty: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AlarmAdapter
+    private val storage by lazy { AlarmStorage(this) }
+    private val scheduler by lazy { AlarmScheduler(this) }
+    private val alarmes = mutableListOf<AlarmData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +39,6 @@ class AlarmActivity : AppCompatActivity() {
 
         pedirPermissaoAlarme()
 
-        // ---------------------- INÍCIO DA ADIÇÃO (CANAL DE NOTIFICAÇÃO) ----------------------
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 "alarme_channel",
@@ -49,7 +51,6 @@ class AlarmActivity : AppCompatActivity() {
             val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
-        // ---------------------- FIM DA ADIÇÃO (CANAL DE NOTIFICAÇÃO) ----------------------
     }
 
     private fun pedirPermissaoAlarme() {
@@ -70,18 +71,65 @@ class AlarmActivity : AppCompatActivity() {
     }
 
     private fun atualizarLista() {
-        val storage = AlarmStorage(this)
-        val lista = storage.getAlarmes()
+        alarmes.clear()
+        alarmes.addAll(storage.getAlarmes())
 
-        if (lista.isEmpty()) {
+        if (alarmes.isEmpty()) {
             textEmpty.visibility = View.VISIBLE
             recyclerView.visibility = View.GONE
         } else {
             textEmpty.visibility = View.GONE
             recyclerView.visibility = View.VISIBLE
 
-            adapter = AlarmAdapter(lista)
-            recyclerView.adapter = adapter
+            if (!::adapter.isInitialized) {
+                adapter = AlarmAdapter(
+                    lista = alarmes,
+                    onToggle = ::alternarAlarme,
+                    onEdit = ::editarAlarme,
+                    onDelete = ::excluirAlarme
+                )
+                recyclerView.adapter = adapter
+            } else {
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun alternarAlarme(alarm: AlarmData, ativo: Boolean) {
+        val atualizado = alarm.copy(active = ativo)
+        storage.salvarOuAtualizar(atualizado)
+        val index = alarmes.indexOfFirst { it.id == alarm.id }
+        if (index >= 0) {
+            alarmes[index] = atualizado
+            adapter.notifyItemChanged(index)
+        }
+
+        scheduler.desligarAlarme(alarm.id)
+        if (ativo) {
+            scheduler.ligarAlarme(atualizado)
+        }
+    }
+
+    private fun editarAlarme(alarm: AlarmData) {
+        val intent = Intent(this, AddAlarmActivity::class.java).apply {
+            putExtra(AddAlarmActivity.EXTRA_ALARM_ID, alarm.id)
+            putExtra(AddAlarmActivity.EXTRA_ALARM_HOUR, alarm.hour)
+            putExtra(AddAlarmActivity.EXTRA_ALARM_MINUTE, alarm.minute)
+            putExtra(AddAlarmActivity.EXTRA_ALARM_SOUND, alarm.soundUri)
+            putExtra(AddAlarmActivity.EXTRA_ALARM_ACTIVE, alarm.active)
+        }
+        startActivity(intent)
+    }
+
+    private fun excluirAlarme(alarm: AlarmData) {
+        scheduler.desligarAlarme(alarm.id)
+        storage.removerAlarme(alarm.id)
+        alarmes.removeAll { it.id == alarm.id }
+        adapter.notifyDataSetChanged()
+
+        if (alarmes.isEmpty()) {
+            textEmpty.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
         }
     }
 }

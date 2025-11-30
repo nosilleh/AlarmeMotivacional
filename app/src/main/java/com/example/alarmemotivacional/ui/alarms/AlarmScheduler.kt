@@ -8,23 +8,22 @@ import java.util.Calendar
 
 class AlarmScheduler(private val context: Context) {
 
-    fun ligarAlarme(hora: Int, minuto: Int) {
+    fun ligarAlarme(alarm: AlarmData) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val intent = Intent(context, AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            hora * 100 + minuto,
+            alarm.id,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         val calendario = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, hora)
-            set(Calendar.MINUTE, minuto)
+            set(Calendar.HOUR_OF_DAY, alarm.hour)
+            set(Calendar.MINUTE, alarm.minute)
             set(Calendar.SECOND, 0)
 
-            // se horário já passou hoje → agenda para amanhã
             if (before(Calendar.getInstance())) {
                 add(Calendar.DAY_OF_YEAR, 1)
             }
@@ -37,13 +36,13 @@ class AlarmScheduler(private val context: Context) {
         )
     }
 
-    fun desligarAlarme(hora: Int, minuto: Int) {
+    fun desligarAlarme(alarmId: Int) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         val intent = Intent(context, AlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            hora * 100 + minuto,
+            alarmId,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
