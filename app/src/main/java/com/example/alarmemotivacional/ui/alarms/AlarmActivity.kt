@@ -1,8 +1,5 @@
 package com.example.alarmemotivacional.ui.alarms
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -36,20 +33,6 @@ class AlarmActivity : AppCompatActivity() {
 
         pedirPermissaoAlarme()
 
-        // ---------------------- INÍCIO DA ADIÇÃO (CANAL DE NOTIFICAÇÃO) ----------------------
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "alarme_channel",
-                "Alarmes",
-                NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                description = "Canal usado para alarmes disparados"
-            }
-
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
-        }
-        // ---------------------- FIM DA ADIÇÃO (CANAL DE NOTIFICAÇÃO) ----------------------
     }
 
     private fun pedirPermissaoAlarme() {

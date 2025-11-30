@@ -1,14 +1,10 @@
 package com.example.alarmemotivacional.ui.alarms
 
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
-import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.example.alarmemotivacional.R
@@ -19,7 +15,6 @@ class AlarmService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        createNotificationChannel()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -103,21 +98,6 @@ class AlarmService : Service() {
                 dismissPendingIntent
             )
             .build()
-    }
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                NotificationHelper.CHANNEL_ID,
-                NotificationHelper.CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                description = NotificationHelper.CHANNEL_DESC
-                enableVibration(true)
-            }
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
-        }
     }
 
     companion object {
