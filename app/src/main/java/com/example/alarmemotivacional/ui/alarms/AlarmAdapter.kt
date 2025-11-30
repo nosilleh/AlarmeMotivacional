@@ -9,7 +9,9 @@ import com.example.alarmemotivacional.R
 import com.google.android.material.materialswitch.MaterialSwitch
 
 class AlarmAdapter(
-    private val lista: List<String>
+    private val lista: MutableList<AlarmData>,
+    private val onToggle: (AlarmData) -> Unit,
+    private val onRemove: (AlarmData) -> Unit
 ) : RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>() {
 
     class AlarmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,11 +27,25 @@ class AlarmAdapter(
     }
 
     override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
-        val horaCompleta = lista[position] // Ex: “07:30”
-        holder.textHora.text = horaCompleta
-        holder.textLabel.text = "Ativo"
+        val alarme = lista[position]
 
-        holder.switchAtivo.isChecked = true
+        holder.textHora.text = alarme.formattedTime
+        holder.textLabel.text = if (alarme.isActive) {
+            holder.itemView.context.getString(R.string.exemplo_label)
+        } else {
+            holder.itemView.context.getString(R.string.alarm_disabled)
+        }
+
+        holder.switchAtivo.setOnCheckedChangeListener(null)
+        holder.switchAtivo.isChecked = alarme.isActive
+        holder.switchAtivo.setOnCheckedChangeListener { _, isChecked ->
+            onToggle(alarme.copy(isActive = isChecked))
+        }
+
+        holder.itemView.setOnLongClickListener {
+            onRemove(alarme)
+            true
+        }
     }
 
     override fun getItemCount(): Int = lista.size

@@ -17,6 +17,7 @@ class AlarmActivity : AppCompatActivity() {
     private lateinit var textEmpty: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AlarmAdapter
+    private val alarmes: MutableList<AlarmData> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,8 @@ class AlarmActivity : AppCompatActivity() {
         textEmpty = findViewById(R.id.textEmpty)
         recyclerView = findViewById(R.id.recyclerAlarmes)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = AlarmAdapter(alarmes, ::onToggleAlarm, ::onRemoveAlarm)
+        recyclerView.adapter = adapter
 
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
         fab.setOnClickListener {
@@ -56,15 +59,36 @@ class AlarmActivity : AppCompatActivity() {
         val storage = AlarmStorage(this)
         val lista = storage.getAlarmes()
 
-        if (lista.isEmpty()) {
-            textEmpty.visibility = View.VISIBLE
-            recyclerView.visibility = View.GONE
-        } else {
-            textEmpty.visibility = View.GONE
-            recyclerView.visibility = View.VISIBLE
+        alarmes.clear()
+        alarmes.addAll(lista)
+        adapter.notifyDataSetChanged()
 
-            adapter = AlarmAdapter(lista)
-            recyclerView.adapter = adapter
+        val isEmpty = lista.isEmpty()
+        textEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+        recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
+    }
+
+    private fun onToggleAlarm(alarme: AlarmData) {
+        val storage = AlarmStorage(this)
+        storage.atualizarAlarme(alarme)
+
+        val scheduler = AlarmScheduler(this)
+        if (alarme.isActive) {
+            scheduler.ligarAlarme(alarme)
+        } else {
+            scheduler.desligarAlarme(alarme)
         }
+
+        atualizarLista()
+    }
+
+    private fun onRemoveAlarm(alarme: AlarmData) {
+        val storage = AlarmStorage(this)
+        storage.removerAlarme(alarme.id)
+
+        val scheduler = AlarmScheduler(this)
+        scheduler.desligarAlarme(alarme)
+
+        atualizarLista()
     }
 }

@@ -9,17 +9,16 @@ import java.util.Calendar
 
 class AlarmScheduler(private val context: Context) {
 
-    fun ligarAlarme(hora: Int, minuto: Int) {
+    fun ligarAlarme(alarme: AlarmData) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val pendingIntent = criarPendingIntent(hora, minuto)
+        val pendingIntent = criarPendingIntent(alarme)
 
         val calendario = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, hora)
-            set(Calendar.MINUTE, minuto)
+            set(Calendar.HOUR_OF_DAY, alarme.hour)
+            set(Calendar.MINUTE, alarme.minute)
             set(Calendar.SECOND, 0)
 
-            // se horário já passou hoje → agenda para amanhã
             if (before(Calendar.getInstance())) {
                 add(Calendar.DAY_OF_YEAR, 1)
             }
@@ -32,21 +31,22 @@ class AlarmScheduler(private val context: Context) {
         )
     }
 
-    fun desligarAlarme(hora: Int, minuto: Int) {
+    fun desligarAlarme(alarme: AlarmData) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val pendingIntent = criarPendingIntent(hora, minuto)
+        val pendingIntent = criarPendingIntent(alarme)
 
         alarmManager.cancel(pendingIntent)
     }
 
-    private fun criarPendingIntent(hora: Int, minuto: Int): PendingIntent {
+    private fun criarPendingIntent(alarme: AlarmData): PendingIntent {
+        val requestCode = (alarme.id % Int.MAX_VALUE).toInt()
+
         val intent = Intent(context, AlarmService::class.java).apply {
             action = AlarmService.ACTION_START_ALARM
-            putExtra(AlarmService.EXTRA_REQUEST_CODE, hora * 100 + minuto)
+            putExtra(AlarmService.EXTRA_REQUEST_CODE, requestCode)
         }
 
-        val requestCode = hora * 100 + minuto
         val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

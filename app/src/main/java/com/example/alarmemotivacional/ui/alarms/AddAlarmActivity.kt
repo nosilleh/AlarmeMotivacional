@@ -54,18 +54,22 @@ class AddAlarmActivity : AppCompatActivity() {
             val hour = timePicker.hour
             val minute = timePicker.minute
 
-            val horaFormatada = String.format("%02d:%02d", hour, minute)
+            val alarme = AlarmData(
+                hour = hour,
+                minute = minute,
+                isActive = true,
+                soundUri = somSelecionado?.toString()
+            )
 
             val storage = AlarmStorage(this)
-            storage.salvarAlarme(horaFormatada)
+            storage.salvarAlarme(alarme)
 
-            // Liga o alarme automaticamente
             val scheduler = AlarmScheduler(this)
-            scheduler.ligarAlarme(hour, minute)
+            scheduler.ligarAlarme(alarme)
 
             Toast.makeText(
                 this,
-                "Alarme definido para $horaFormatada",
+                "Alarme definido para ${alarme.formattedTime}",
                 Toast.LENGTH_SHORT
             ).show()
 
