@@ -1,5 +1,7 @@
 package com.example.alarmemotivacional.ui.alarms
 
+import android.media.RingtoneManager
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ class AlarmAdapter(
     class AlarmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textHora: TextView = itemView.findViewById(R.id.textHora)
         val textLabel: TextView = itemView.findViewById(R.id.textLabel)
+        val textSound: TextView = itemView.findViewById(R.id.textSound)
         val switchAtivo: MaterialSwitch = itemView.findViewById(R.id.switchAtivo)
     }
 
@@ -46,7 +49,23 @@ class AlarmAdapter(
             onRemove(alarme)
             true
         }
+
+        holder.textSound.text = resolveSoundLabel(holder.itemView.context, alarme.soundUri)
     }
 
     override fun getItemCount(): Int = lista.size
+
+    private fun resolveSoundLabel(context: android.content.Context, soundUri: String?): String {
+        if (soundUri.isNullOrBlank()) return context.getString(R.string.alarm_sound_default)
+
+        val uri = runCatching { Uri.parse(soundUri) }.getOrNull() ?: return context.getString(R.string.alarm_sound_default)
+        val ringtone = RingtoneManager.getRingtone(context, uri)
+        val title = ringtone?.getTitle(context)
+
+        return if (title.isNullOrBlank()) {
+            context.getString(R.string.alarm_sound_default)
+        } else {
+            context.getString(R.string.alarm_sound_custom, title)
+        }
+    }
 }

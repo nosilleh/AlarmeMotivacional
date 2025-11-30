@@ -45,6 +45,8 @@ class AlarmScheduler(private val context: Context) {
         val intent = Intent(context, AlarmService::class.java).apply {
             action = AlarmService.ACTION_START_ALARM
             putExtra(AlarmService.EXTRA_REQUEST_CODE, requestCode)
+            putExtra(AlarmService.EXTRA_SOUND_URI, alarme.soundUri)
+            putExtra(AlarmService.EXTRA_ALARM_ID, alarme.id)
         }
 
         val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
