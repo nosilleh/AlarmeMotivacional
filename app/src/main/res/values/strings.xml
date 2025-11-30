@@ -8,4 +8,14 @@
     <string name="alarm_notification_title">Alarme motivacional tocando</string>
     <string name="alarm_notification_text">Toque para abrir sua motivação</string>
     <string name="alarm_notification_dismiss">Dispensar</string>
+
+    <string name="add_alarm_title">Novo Alarme</string>
+    <string name="add_alarm_instruction">Selecione o horário:</string>
+    <string name="sound_default_label">Som selecionado: padrão</string>
+    <string name="sound_selected_label">Som selecionado: %1$s</string>
+    <string name="sound_unknown_label">Som selecionado: indisponível</string>
+    <string name="select_sound_button">Selecionar som</string>
+    <string name="save_alarm_button">Salvar alarme</string>
+    <string name="alarm_sound_default">Som padrão</string>
+    <string name="alarm_sound_custom">Som: %1$s</string>
 </resources>

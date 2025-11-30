@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.example.alarmemotivacional.R
@@ -26,7 +27,8 @@ class AlarmService : Service() {
                 return START_NOT_STICKY
             }
             else -> {
-                startAlarm()
+                val soundUri = resolverSom(intent)
+                startAlarm(soundUri)
                 val notification = buildAlarmNotification()
                 startForeground(NOTIFICATION_ID, notification)
             }
@@ -42,19 +44,60 @@ class AlarmService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-    private fun startAlarm() {
-        if (player == null) {
-            player = MediaPlayer.create(this, R.raw.alarm_sound).apply {
-                isLooping = true
-                start()
-            }
+    private fun startAlarm(soundUri: String?) {
+        stopAlarm()
+
+        val uri = soundUri?.let { runCatching { Uri.parse(it) }.getOrNull() }
+        val selectedPlayer = criarPlayerPersonalizado(uri)
+
+        if (selectedPlayer != null) {
+            player = selectedPlayer
+            return
         }
+
+        iniciarSomPadrao()
     }
 
     private fun stopAlarm() {
         player?.stop()
         player?.release()
         player = null
+    }
+
+    private fun criarPlayerPersonalizado(uri: Uri?): MediaPlayer? {
+        if (uri == null) return null
+
+        return runCatching {
+            MediaPlayer().apply {
+                setDataSource(applicationContext, uri)
+                isLooping = true
+                setOnPreparedListener { it.start() }
+                setOnErrorListener { _, _, _ ->
+                    iniciarSomPadrao()
+                    true
+                }
+                prepareAsync()
+            }
+        }.getOrNull()
+    }
+
+    private fun iniciarSomPadrao() {
+        stopAlarm()
+        player = MediaPlayer.create(this, R.raw.alarm_sound)?.apply {
+            isLooping = true
+            start()
+        }
+    }
+
+    private fun resolverSom(intent: Intent?): String? {
+        val uriDireto = intent?.getStringExtra(EXTRA_SOUND_URI)
+        if (!uriDireto.isNullOrBlank()) return uriDireto
+
+        val alarmId = intent?.getLongExtra(EXTRA_ALARM_ID, -1L) ?: -1L
+        if (alarmId == -1L) return null
+
+        val storage = AlarmStorage(this)
+        return storage.getAlarmes().firstOrNull { it.id == alarmId }?.soundUri
     }
 
     private fun buildAlarmNotification(): Notification {
@@ -104,6 +147,8 @@ class AlarmService : Service() {
         const val ACTION_START_ALARM = "com.example.alarmemotivacional.action.START_ALARM"
         const val ACTION_DISMISS = "com.example.alarmemotivacional.action.DISMISS_ALARM"
         const val EXTRA_REQUEST_CODE = "extra_request_code"
+        const val EXTRA_SOUND_URI = "extra_sound_uri"
+        const val EXTRA_ALARM_ID = "extra_alarm_id"
 
         private const val NOTIFICATION_ID = 1
         private const val DISMISS_REQUEST_CODE = 1001

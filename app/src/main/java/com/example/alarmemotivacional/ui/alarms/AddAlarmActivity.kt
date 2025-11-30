@@ -1,6 +1,7 @@
 package com.example.alarmemotivacional.ui.alarms
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
@@ -15,9 +16,11 @@ import com.example.alarmemotivacional.R
 class AddAlarmActivity : AppCompatActivity() {
 
     private var somSelecionado: Uri? = null
+    private lateinit var textSoundSelected: TextView
 
     companion object {
         private const val REQUEST_PICK_RINGTONE = 1001
+        private const val KEY_SELECTED_SOUND_URI = "selected_sound_uri"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +31,10 @@ class AddAlarmActivity : AppCompatActivity() {
         val btnSave = findViewById<Button>(R.id.btnSaveAlarm)
 
         val btnSelectSound = findViewById<Button>(R.id.btnSelectSound)
-        val textSoundSelected = findViewById<TextView>(R.id.textSoundSelected)
+        textSoundSelected = findViewById(R.id.textSoundSelected)
+
+        somSelecionado = savedInstanceState?.getString(KEY_SELECTED_SOUND_URI)?.let { Uri.parse(it) }
+        atualizarLabelSom(somSelecionado)
 
         // ---------------- SELECTOR DE SOM NATIVO ----------------
         btnSelectSound.setOnClickListener {
@@ -88,11 +94,37 @@ class AddAlarmActivity : AppCompatActivity() {
 
             if (uri != null) {
                 somSelecionado = uri
+                persistirPermissaoUri(data, uri)
+                atualizarLabelSom(uri)
+            }
+        }
+    }
 
-                val textSound = findViewById<TextView>(R.id.textSoundSelected)
-                val title = RingtoneManager.getRingtone(this, uri).getTitle(this)
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(KEY_SELECTED_SOUND_URI, somSelecionado?.toString())
+        super.onSaveInstanceState(outState)
+    }
 
-                textSound.text = "Som selecionado: $title"
+    private fun atualizarLabelSom(uri: Uri?) {
+        val titulo = uri?.let { RingtoneManager.getRingtone(this, it)?.getTitle(this) }
+
+        textSoundSelected.text = when {
+            titulo != null -> getString(R.string.sound_selected_label, titulo)
+            uri != null -> getString(R.string.sound_unknown_label)
+            else -> getString(R.string.sound_default_label)
+        }
+    }
+
+    private fun persistirPermissaoUri(data: Intent?, uri: Uri) {
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) return
+
+        val flags = data?.flags ?: 0
+        if (flags and Intent.FLAG_GRANT_READ_URI_PERMISSION != 0) {
+            runCatching {
+                contentResolver.takePersistableUriPermission(
+                    uri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
             }
         }
     }
