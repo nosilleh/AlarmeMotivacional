@@ -10,12 +10,11 @@
     tools:context=".ui.alarms.AlarmRingingActivity">
 
     <com.google.android.material.card.MaterialCardView
+        style="@style/DeskClockCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        app:cardBackgroundColor="@color/deskclock_surface"
-        app:cardCornerRadius="18dp"
-        app:cardElevation="6dp"
+        app:cardCornerRadius="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +32,7 @@
                 android:layout_height="48dp"
                 android:contentDescription="@string/alarm_ringing_title"
                 android:tint="@color/deskclock_primary"
-                app:srcCompat="@drawable/ic_alarm_clock" />
+                app:srcCompat="@drawable/ic_alarm" />
 
             <TextView
                 android:id="@+id/textAlarmTitle"
@@ -53,7 +52,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/alarm_ringing_subtitle"
                 android:textColor="@color/deskclock_on_surface_secondary"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 tools:text="Pré-toque ativo" />
 
             <View

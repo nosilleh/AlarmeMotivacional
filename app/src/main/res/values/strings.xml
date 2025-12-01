@@ -9,13 +9,13 @@
     <string name="alarm_notification_text">Toque para abrir sua motivação</string>
     <string name="alarm_notification_dismiss">Dispensar</string>
 
-    <string name="add_alarm_title">Novo Alarme</string>
-    <string name="add_alarm_instruction">Selecione o horário:</string>
+    <string name="add_alarm_title">Adicionar alarme</string>
+    <string name="add_alarm_instruction">O alarme disparará em 23 horas e 59 minutos</string>
     <string name="sound_default_label">Som selecionado: padrão</string>
     <string name="sound_selected_label">Som selecionado: %1$s</string>
     <string name="sound_unknown_label">Som selecionado: indisponível</string>
-    <string name="select_sound_button">Selecionar som</string>
-    <string name="save_alarm_button">Salvar alarme</string>
+    <string name="select_sound_button">Toque</string>
+    <string name="save_alarm_button">Concluído</string>
     <string name="alarm_sound_default">Som padrão</string>
     <string name="alarm_sound_custom">Som: %1$s</string>
     <string name="notification_permission_denied">Precisamos da permissão de notificações para tocar o alarme.</string>
@@ -24,7 +24,7 @@
     <string name="alarm_disabled_feedback">Alarme desativado.</string>
     <string name="video_default_label">Vídeo selecionado: padrão</string>
     <string name="video_selected_label">Vídeo selecionado</string>
-    <string name="select_video_button">Selecionar vídeo</string>
+    <string name="select_video_button">Vídeo motivacional</string>
     <string name="alarm_video_default">Vídeo padrão</string>
     <string name="alarm_video_custom">Vídeo personalizado</string>
     <string name="alarm_ringing_title">Alarme tocando</string>
@@ -34,4 +34,36 @@
     <string name="alarm_options_title">Opções do alarme</string>
     <string name="alarm_option_edit">Editar</string>
     <string name="alarm_option_delete">Excluir</string>
+
+    <string name="alarm_title">Alarme</string>
+    <string name="alarm_next_placeholder">O alarme disparará em breve</string>
+    <string name="no_alarms">Nenhum alarme criado</string>
+    <string name="overflow_menu">Mais opções</string>
+    <string name="back">Voltar</string>
+
+    <string name="tab_alarm">Alarme</string>
+    <string name="tab_world">Relógio mundial</string>
+    <string name="tab_stopwatch">Cronômetro</string>
+    <string name="tab_timer">Timer</string>
+
+    <string name="settings_title">Configurações</string>
+    <string name="settings_clock_header">Configurações do relógio</string>
+    <string name="settings_general_header">Configurações gerais</string>
+    <string name="settings_edit_system_time">Editar hora do sistema</string>
+    <string name="settings_alarm_tone">Toque do alarme</string>
+    <string name="settings_timer_tone">Toque do timer</string>
+    <string name="settings_volume">Volume do toque</string>
+    <string name="settings_auto_silence">Silenciar automaticamente</string>
+    <string name="settings_additional">Configurações adicionais de alarme</string>
+
+    <string name="world_clock_title">Relógio mundial</string>
+    <string name="world_clock_local">Hora local 1 dez.</string>
+    <string name="world_clock_empty">Nenhum relógio aqui</string>
+
+    <string name="stopwatch_title">Cronômetro</string>
+    <string name="timer_title">Timer</string>
+
+    <string name="vibrate_on_alarm">Vibrar quando o alarme disparar</string>
+    <string name="delete_after_alarm">Excluir após o alarme disparar</string>
+    <string name="alarm_name_hint">Nome</string>
 </resources>

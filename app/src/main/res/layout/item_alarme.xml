@@ -2,104 +2,80 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DeskClockCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginVertical="8dp"
+    android:layout_marginVertical="12dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/deskclock_surface"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp"
-    app:rippleColor="@color/deskclock_divider"
-    app:strokeColor="@color/deskclock_divider"
-    app:strokeWidth="1dp">
+    android:foreground="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="96dp"
-        android:padding="16dp">
-
-        <ImageView
-            android:id="@+id/iconAlarm"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:contentDescription="@string/app_name"
-            android:tint="@color/deskclock_primary"
-            app:layout_constraintBottom_toBottomOf="@+id/textLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textHora"
-            app:srcCompat="@drawable/ic_alarm_clock" />
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/textHora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:fontFamily="sans-serif"
             android:text="@string/exemplo_hora"
             android:textColor="@color/deskclock_on_surface"
-            android:textSize="32sp"
+            android:textSize="36sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/iconAlarm"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="07:30" />
+            tools:text="06:10" />
 
         <TextView
             android:id="@+id/textLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/exemplo_label"
             android:textColor="@color/deskclock_on_surface_secondary"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/iconAlarm"
+            app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textHora"
-            tools:text="Despertar" />
+            tools:text="Diariamente" />
 
         <TextView
             android:id="@+id/textSound"
-            android:layout_width="wrap_content"
+            style="@style/DeskClockLabel"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif"
+            android:layout_marginTop="6dp"
             android:text="@string/alarm_sound_default"
-            android:textColor="@color/deskclock_on_surface_secondary"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/iconAlarm"
+            app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textLabel"
-            tools:text="Som padrão" />
+            tools:text="Toque padrão" />
 
         <TextView
             android:id="@+id/textVideo"
-            android:layout_width="wrap_content"
+            style="@style/DeskClockLabel"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:fontFamily="sans-serif"
             android:text="@string/alarm_video_default"
-            android:textColor="@color/deskclock_on_surface_secondary"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/iconAlarm"
+            app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textSound"
             tools:text="Vídeo padrão" />
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switchAtivo"
+            style="@style/DeskClockSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:thumbIconTint="@color/deskclock_primary"
-            app:thumbTint="@color/deskclock_primary"
-            app:trackTint="@color/deskclock_divider" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

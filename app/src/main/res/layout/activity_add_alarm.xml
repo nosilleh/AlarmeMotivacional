@@ -7,204 +7,235 @@
     android:background="@color/deskclock_background"
     tools:context=".ui.alarms.AddAlarmActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/deskclock_surface"
-        android:elevation="4dp">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbarAdd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:theme="@style/ThemeOverlay.Material3.ActionBar"
-            app:title="@string/add_alarm_title"
-            app:titleCentered="true"
-            app:titleTextColor="@color/deskclock_on_surface" />
-    </com.google.android.material.appbar.AppBarLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="108dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="120dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            tools:ignore="UseCompoundDrawables">
+            android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
+                style="@style/DeskClockCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/deskclock_surface"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/deskclock_divider"
-                app:strokeWidth="1dp">
+                android:padding="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/btnClose"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/round_ripple_button"
+                            android:contentDescription="@string/back"
+                            android:padding="10dp"
+                            android:tint="@color/deskclock_on_surface_secondary"
+                            app:srcCompat="@drawable/ic_back" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:text="@string/add_alarm_title"
+                            android:textColor="@color/deskclock_on_surface"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/btnSave"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/round_ripple_button"
+                            android:contentDescription="@string/save_alarm_button"
+                            android:padding="10dp"
+                            android:tint="@color/deskclock_on_surface"
+                            app:srcCompat="@drawable/ic_check" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/textAddTitle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
                         android:text="@string/add_alarm_instruction"
-                        android:textColor="@color/deskclock_on_surface"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/deskclock_on_surface_secondary"
+                        android:textSize="14sp"
+                        tools:text="O alarme disparará em 23 horas e 59 minutos" />
 
                     <TimePicker
                         android:id="@+id/timePicker"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="8dp"
                         android:timePickerMode="spinner" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                style="@style/DeskClockCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/deskclock_surface"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/deskclock_divider"
-                app:strokeWidth="1dp">
+                android:layout_marginTop="16dp"
+                android:padding="16dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/textInstruction"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/select_sound_button"
-                        android:textColor="@color/deskclock_on_surface"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                    android:divider="@color/deskclock_divider"
+                    android:showDividers="middle">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="12dp">
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:contentDescription="@string/select_sound_button"
-                            android:tint="@color/deskclock_on_surface_secondary"
-                            app:srcCompat="@drawable/ic_music_note" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/select_sound_button"
+                            android:textColor="@color/deskclock_on_surface"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textSoundSelected"
-                            android:layout_width="0dp"
+                            style="@style/DeskClockLabel"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="@string/sound_default_label"
-                            android:textColor="@color/deskclock_on_surface_secondary"
-                            android:textSize="14sp"
-                            tools:text="Som selecionado: padrão" />
+                            tools:text="Som padrão" />
                     </LinearLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnSelectSound"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:text="@string/select_sound_button"
                         android:textAllCaps="false"
-                        android:textColor="@color/deskclock_primary"
-                        app:strokeColor="@color/deskclock_primary"
-                        app:strokeWidth="1dp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/deskclock_surface"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeColor="@color/deskclock_divider"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/select_video_button"
-                        android:textColor="@color/deskclock_on_surface"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/deskclock_primary" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="12dp">
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:contentDescription="@string/select_video_button"
-                            android:tint="@color/deskclock_on_surface_secondary"
-                            app:srcCompat="@drawable/ic_video_library" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/select_video_button"
+                            android:textColor="@color/deskclock_on_surface"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textVideoSelected"
-                            android:layout_width="0dp"
+                            style="@style/DeskClockLabel"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="@string/video_default_label"
-                            android:textColor="@color/deskclock_on_surface_secondary"
-                            android:textSize="14sp"
-                            tools:text="Vídeo selecionado: padrão" />
+                            tools:text="Vídeo padrão" />
                     </LinearLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnSelectVideo"
-                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:text="@string/select_video_button"
                         android:textAllCaps="false"
-                        android:textColor="@color/deskclock_primary"
-                        app:strokeColor="@color/deskclock_primary"
-                        app:strokeWidth="1dp" />
+                        android:textColor="@color/deskclock_primary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/vibrate_on_alarm"
+                            android:textColor="@color/deskclock_on_surface"
+                            android:textSize="15sp" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            style="@style/DeskClockSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/delete_after_alarm"
+                            android:textColor="@color/deskclock_on_surface"
+                            android:textSize="15sp" />
+
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                            style="@style/DeskClockSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/alarm_name_hint"
+                app:boxBackgroundColor="@color/deskclock_surface"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxStrokeColor="@color/card_stroke">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:textColor="@color/deskclock_on_surface"
+                    android:textColorHint="@color/deskclock_on_surface_secondary"
+                    android:inputType="textCapSentences" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -220,7 +251,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:backgroundTint="@color/deskclock_primary"
-        app:cornerRadius="12dp"
+        app:cornerRadius="18dp"
         app:strokeColor="@color/deskclock_primary_variant"
         app:strokeWidth="1dp" />
 
