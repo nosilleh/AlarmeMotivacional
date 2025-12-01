@@ -1,53 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
+    android:background="@color/deskclock_background"
     tools:context=".ui.alarms.AlarmActivity">
 
-    <!-- Título -->
-    <TextView
-        android:id="@+id/textTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Alarmes"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:layout_alignParentTop="true" />
-
-    <!-- RecyclerView para listar alarmes -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerAlarmes"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/textTitulo"
-        android:layout_above="@id/fabAdd"
-        android:layout_marginTop="16dp"
-        android:paddingBottom="16dp"
-        android:visibility="gone" />
-
-    <!-- Texto quando não existir alarme -->
-    <TextView
-        android:id="@+id/textEmpty"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nenhum alarme criado"
-        android:textSize="16sp"
-        android:textColor="#AAAAAA"
-        android:layout_centerInParent="true" />
+        android:background="@color/deskclock_surface"
+        android:elevation="4dp">
 
-    <!-- Botão flutuante + -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:theme="@style/ThemeOverlay.Material3.ActionBar"
+            app:title="@string/app_name"
+            app:titleCentered="true"
+            app:titleTextColor="@color/deskclock_on_surface"
+            app:navigationIcon="@drawable/ic_alarm_clock"
+            app:navigationIconTint="@color/deskclock_on_surface" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerAlarmes"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="96dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_alarme" />
+
+        <TextView
+            android:id="@+id/textEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nenhum alarme criado"
+            android:textColor="@color/deskclock_on_surface_secondary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Nenhum alarme criado" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp"
-        app:srcCompat="@android:drawable/ic_input_add"
-        app:tint="#FFFFFF" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:contentDescription="@string/add_alarm_title"
+        app:backgroundTint="@color/deskclock_primary"
+        app:fabCustomSize="72dp"
+        app:srcCompat="@drawable/ic_alarm_add"
+        app:tint="@color/white" />
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
