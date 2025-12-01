@@ -3,6 +3,7 @@
         <item name="colorPrimary">@color/deskclock_primary</item>
         <item name="colorPrimaryVariant">@color/deskclock_primary_variant</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="material3DynamicColorApplied">true</item>
         <item name="android:statusBarColor">@color/deskclock_background</item>
         <item name="android:navigationBarColor">@color/deskclock_background</item>
         <item name="android:windowBackground">@color/deskclock_background</item>
