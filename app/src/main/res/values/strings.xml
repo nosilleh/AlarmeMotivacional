@@ -18,4 +18,8 @@
     <string name="save_alarm_button">Salvar alarme</string>
     <string name="alarm_sound_default">Som padrão</string>
     <string name="alarm_sound_custom">Som: %1$s</string>
+    <string name="notification_permission_denied">Precisamos da permissão de notificações para tocar o alarme.</string>
+    <string name="exact_alarm_permission_missing">Não foi possível agendar sem a permissão de alarmes exatos. Habilite-a para ativar o alarme.</string>
+    <string name="media_permission_denied">Permissão de mídia negada. Não foi possível abrir o seletor.</string>
+    <string name="alarm_disabled_feedback">Alarme desativado.</string>
 </resources>
