@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -43,14 +44,20 @@ class AlarmActivity : AppCompatActivity() {
 
         pedirPermissaoAlarme()
 
-    }
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (isTaskRoot) {
+                        moveTaskToBack(true)
+                    } else {
+                        isEnabled = false
+                        onBackPressedDispatcher.onBackPressed()
+                    }
+                }
+            }
+        )
 
-    override fun onBackPressed() {
-        if (isTaskRoot) {
-            moveTaskToBack(true)
-        } else {
-            super.onBackPressed()
-        }
     }
 
     private fun pedirPermissaoAlarme() {
