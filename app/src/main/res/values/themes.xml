@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme.AlarmeMotivacional" parent="Base.Theme.AlarmeMotivacional" />
+
+    <style name="Theme.AlarmeMotivacional.NoActionBar" parent="Theme.AlarmeMotivacional">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
