@@ -1,16 +1,21 @@
 package com.example.alarmemotivacional.ui.alarms
 
+import android.Manifest
 import android.app.Activity
 import android.content.ContentResolver
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.RingtoneManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.alarmemotivacional.R
 
 class AddAlarmActivity : AppCompatActivity() {
@@ -20,8 +25,19 @@ class AddAlarmActivity : AppCompatActivity() {
 
     companion object {
         private const val REQUEST_PICK_RINGTONE = 1001
+        private const val REQUEST_MEDIA_PERMISSION = 1002
         private const val KEY_SELECTED_SOUND_URI = "selected_sound_uri"
     }
+
+    private val mediaPermissions: Array<String>
+        get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arrayOf(
+                Manifest.permission.READ_MEDIA_AUDIO,
+                Manifest.permission.READ_MEDIA_VIDEO
+            )
+        } else {
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,22 +53,7 @@ class AddAlarmActivity : AppCompatActivity() {
         atualizarLabelSom(somSelecionado)
 
         // ---------------- SELECTOR DE SOM NATIVO ----------------
-        btnSelectSound.setOnClickListener {
-            val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
-
-            intent.putExtra(
-                RingtoneManager.EXTRA_RINGTONE_TYPE,
-                RingtoneManager.TYPE_ALARM
-            )
-            intent.putExtra(
-                RingtoneManager.EXTRA_RINGTONE_TITLE,
-                "Selecione o som do alarme"
-            )
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
-            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
-
-            startActivityForResult(intent, REQUEST_PICK_RINGTONE)
-        }
+        btnSelectSound.setOnClickListener { ensureMediaPermission { abrirSeletorSom() } }
 
         // ---------------- SALVAR ALARME ----------------
         btnSave.setOnClickListener {
@@ -67,17 +68,26 @@ class AddAlarmActivity : AppCompatActivity() {
                 soundUri = somSelecionado?.toString()
             )
 
-            val storage = AlarmStorage(this)
-            storage.salvarAlarme(alarme)
-
             val scheduler = AlarmScheduler(this)
-            scheduler.ligarAlarme(alarme)
+            val alarmeAgendado = scheduler.ligarAlarme(alarme)
 
-            Toast.makeText(
-                this,
-                "Alarme definido para ${alarme.formattedTime}",
-                Toast.LENGTH_SHORT
-            ).show()
+            val storage = AlarmStorage(this)
+            val alarmeParaSalvar = if (alarmeAgendado) alarme else alarme.copy(isActive = false)
+            storage.salvarAlarme(alarmeParaSalvar)
+
+            if (!alarmeAgendado) {
+                Toast.makeText(
+                    this,
+                    R.string.exact_alarm_permission_missing,
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Alarme definido para ${alarme.formattedTime}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
             setResult(Activity.RESULT_OK)
             finish()
@@ -103,6 +113,59 @@ class AddAlarmActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(KEY_SELECTED_SOUND_URI, somSelecionado?.toString())
         super.onSaveInstanceState(outState)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == REQUEST_MEDIA_PERMISSION) {
+            if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                abrirSeletorSom()
+            } else {
+                Toast.makeText(
+                    this,
+                    R.string.media_permission_denied,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun abrirSeletorSom() {
+        val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
+
+        intent.putExtra(
+            RingtoneManager.EXTRA_RINGTONE_TYPE,
+            RingtoneManager.TYPE_ALARM
+        )
+        intent.putExtra(
+            RingtoneManager.EXTRA_RINGTONE_TITLE,
+            "Selecione o som do alarme"
+        )
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
+
+        startActivityForResult(intent, REQUEST_PICK_RINGTONE)
+    }
+
+    private fun ensureMediaPermission(onGranted: () -> Unit) {
+        val missingPermissions = mediaPermissions.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (missingPermissions.isEmpty()) {
+            onGranted()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                missingPermissions.toTypedArray(),
+                REQUEST_MEDIA_PERMISSION
+            )
+        }
     }
 
     private fun atualizarLabelSom(uri: Uri?) {

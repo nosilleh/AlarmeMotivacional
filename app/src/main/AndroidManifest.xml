@@ -12,7 +12,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <!-- Acesso à galeria para pegar o vídeo motivacional -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
     <!-- Necessário a partir do Android 13+ para mostrar notificações -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>

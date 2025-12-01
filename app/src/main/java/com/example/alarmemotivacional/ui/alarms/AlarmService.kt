@@ -1,12 +1,16 @@
 package com.example.alarmemotivacional.ui.alarms
 
+import android.Manifest
 import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.net.Uri
+import android.os.Build
 import android.os.IBinder
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.alarmemotivacional.R
 
@@ -27,6 +31,15 @@ class AlarmService : Service() {
                 return START_NOT_STICKY
             }
             else -> {
+                if (!temPermissaoNotificacao()) {
+                    Toast.makeText(
+                        this,
+                        R.string.notification_permission_denied,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    stopSelf()
+                    return START_NOT_STICKY
+                }
                 val soundUri = resolverSom(intent)
                 startAlarm(soundUri)
                 val notification = buildAlarmNotification()
@@ -43,6 +56,14 @@ class AlarmService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
+
+    private fun temPermissaoNotificacao(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+    }
 
     private fun startAlarm(soundUri: String?) {
         stopAlarm()
