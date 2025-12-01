@@ -94,10 +94,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:thumbIconTint="@color/deskclock_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:thumbIconTint="@color/deskclock_primary"
             app:thumbTint="@color/deskclock_primary"
             app:trackTint="@color/deskclock_divider" />
 
