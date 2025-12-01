@@ -21,12 +21,17 @@ import com.example.alarmemotivacional.R
 class AddAlarmActivity : AppCompatActivity() {
 
     private var somSelecionado: Uri? = null
+    private var videoSelecionado: Uri? = null
+    private var onPermissionGranted: (() -> Unit)? = null
     private lateinit var textSoundSelected: TextView
+    private lateinit var textVideoSelected: TextView
 
     companion object {
         private const val REQUEST_PICK_RINGTONE = 1001
         private const val REQUEST_MEDIA_PERMISSION = 1002
+        private const val REQUEST_PICK_VIDEO = 1003
         private const val KEY_SELECTED_SOUND_URI = "selected_sound_uri"
+        private const val KEY_SELECTED_VIDEO_URI = "selected_video_uri"
     }
 
     private val mediaPermissions: Array<String>
@@ -47,13 +52,18 @@ class AddAlarmActivity : AppCompatActivity() {
         val btnSave = findViewById<Button>(R.id.btnSaveAlarm)
 
         val btnSelectSound = findViewById<Button>(R.id.btnSelectSound)
+        val btnSelectVideo = findViewById<Button>(R.id.btnSelectVideo)
         textSoundSelected = findViewById(R.id.textSoundSelected)
+        textVideoSelected = findViewById(R.id.textVideoSelected)
 
         somSelecionado = savedInstanceState?.getString(KEY_SELECTED_SOUND_URI)?.let { Uri.parse(it) }
+        videoSelecionado = savedInstanceState?.getString(KEY_SELECTED_VIDEO_URI)?.let { Uri.parse(it) }
         atualizarLabelSom(somSelecionado)
+        atualizarLabelVideo(videoSelecionado)
 
         // ---------------- SELECTOR DE SOM NATIVO ----------------
         btnSelectSound.setOnClickListener { ensureMediaPermission { abrirSeletorSom() } }
+        btnSelectVideo.setOnClickListener { ensureMediaPermission { abrirSeletorVideo() } }
 
         // ---------------- SALVAR ALARME ----------------
         btnSave.setOnClickListener {
@@ -65,7 +75,8 @@ class AddAlarmActivity : AppCompatActivity() {
                 hour = hour,
                 minute = minute,
                 isActive = true,
-                soundUri = somSelecionado?.toString()
+                soundUri = somSelecionado?.toString(),
+                videoUri = videoSelecionado?.toString()
             )
 
             val scheduler = AlarmScheduler(this)
@@ -108,10 +119,21 @@ class AddAlarmActivity : AppCompatActivity() {
                 atualizarLabelSom(uri)
             }
         }
+
+        if (requestCode == REQUEST_PICK_VIDEO && resultCode == Activity.RESULT_OK) {
+            val uri = data?.data
+
+            if (uri != null) {
+                videoSelecionado = uri
+                persistirPermissaoUri(data, uri)
+                atualizarLabelVideo(uri)
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(KEY_SELECTED_SOUND_URI, somSelecionado?.toString())
+        outState.putString(KEY_SELECTED_VIDEO_URI, videoSelecionado?.toString())
         super.onSaveInstanceState(outState)
     }
 
@@ -124,7 +146,7 @@ class AddAlarmActivity : AppCompatActivity() {
 
         if (requestCode == REQUEST_MEDIA_PERMISSION) {
             if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
-                abrirSeletorSom()
+                onPermissionGranted?.invoke()
             } else {
                 Toast.makeText(
                     this,
@@ -132,6 +154,8 @@ class AddAlarmActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
+            onPermissionGranted = null
         }
     }
 
@@ -152,6 +176,17 @@ class AddAlarmActivity : AppCompatActivity() {
         startActivityForResult(intent, REQUEST_PICK_RINGTONE)
     }
 
+    private fun abrirSeletorVideo() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "video/*"
+            addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        startActivityForResult(intent, REQUEST_PICK_VIDEO)
+    }
+
     private fun ensureMediaPermission(onGranted: () -> Unit) {
         val missingPermissions = mediaPermissions.filter {
             ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
@@ -160,6 +195,7 @@ class AddAlarmActivity : AppCompatActivity() {
         if (missingPermissions.isEmpty()) {
             onGranted()
         } else {
+            onPermissionGranted = onGranted
             ActivityCompat.requestPermissions(
                 this,
                 missingPermissions.toTypedArray(),
@@ -175,6 +211,13 @@ class AddAlarmActivity : AppCompatActivity() {
             titulo != null -> getString(R.string.sound_selected_label, titulo)
             uri != null -> getString(R.string.sound_unknown_label)
             else -> getString(R.string.sound_default_label)
+        }
+    }
+
+    private fun atualizarLabelVideo(uri: Uri?) {
+        textVideoSelected.text = when {
+            uri != null -> getString(R.string.video_selected_label)
+            else -> getString(R.string.video_default_label)
         }
     }
 

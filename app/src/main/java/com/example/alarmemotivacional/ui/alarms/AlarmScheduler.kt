@@ -60,6 +60,7 @@ class AlarmScheduler(private val context: Context) {
             putExtra(AlarmService.EXTRA_REQUEST_CODE, requestCode)
             putExtra(AlarmService.EXTRA_SOUND_URI, alarme.soundUri)
             putExtra(AlarmService.EXTRA_ALARM_ID, alarme.id)
+            putExtra(AlarmService.EXTRA_VIDEO_URI, alarme.videoUri)
         }
 
         val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE

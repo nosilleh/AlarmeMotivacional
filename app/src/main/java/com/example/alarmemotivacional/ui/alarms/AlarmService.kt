@@ -37,13 +37,12 @@ class AlarmService : Service() {
                         R.string.notification_permission_denied,
                         Toast.LENGTH_LONG
                     ).show()
-                    stopSelf()
-                    return START_NOT_STICKY
                 }
-                val soundUri = resolverSom(intent)
-                startAlarm(soundUri)
+                val alarme = resolverAlarme(intent)
+                startAlarm(alarme?.soundUri)
                 val notification = buildAlarmNotification()
-                startForeground(NOTIFICATION_ID, notification)
+                startForegroundSafe(notification)
+                startVideo(alarme?.videoUri)
             }
         }
 
@@ -110,15 +109,30 @@ class AlarmService : Service() {
         }
     }
 
-    private fun resolverSom(intent: Intent?): String? {
-        val uriDireto = intent?.getStringExtra(EXTRA_SOUND_URI)
-        if (!uriDireto.isNullOrBlank()) return uriDireto
-
+    private fun resolverAlarme(intent: Intent?): AlarmData? {
+        val uriSomDireto = intent?.getStringExtra(EXTRA_SOUND_URI)
+        val uriVideoDireto = intent?.getStringExtra(EXTRA_VIDEO_URI)
         val alarmId = intent?.getLongExtra(EXTRA_ALARM_ID, -1L) ?: -1L
-        if (alarmId == -1L) return null
 
         val storage = AlarmStorage(this)
-        return storage.getAlarmes().firstOrNull { it.id == alarmId }?.soundUri
+        val armazenado = storage.getAlarmes().firstOrNull { it.id == alarmId }
+
+        if (armazenado != null) {
+            return armazenado.copy(
+                soundUri = uriSomDireto ?: armazenado.soundUri,
+                videoUri = uriVideoDireto ?: armazenado.videoUri
+            )
+        }
+
+        if (alarmId == -1L && uriSomDireto == null && uriVideoDireto == null) return null
+
+        return AlarmData(
+            id = if (alarmId != -1L) alarmId else System.currentTimeMillis(),
+            hour = 0,
+            minute = 0,
+            soundUri = uriSomDireto,
+            videoUri = uriVideoDireto
+        )
     }
 
     private fun buildAlarmNotification(): Notification {
@@ -164,12 +178,33 @@ class AlarmService : Service() {
             .build()
     }
 
+    private fun startVideo(videoUri: String?) {
+        if (videoUri.isNullOrBlank()) return
+
+        val uri = runCatching { Uri.parse(videoUri) }.getOrNull() ?: return
+
+        val intent = Intent(this, VideoActivity::class.java).apply {
+            action = Intent.ACTION_VIEW
+            data = uri
+            putExtra(VideoActivity.EXTRA_VIDEO_URI, videoUri)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        }
+
+        startActivity(intent)
+    }
+
+    private fun startForegroundSafe(notification: Notification) {
+        runCatching { startForeground(NOTIFICATION_ID, notification) }
+    }
+
     companion object {
         const val ACTION_START_ALARM = "com.example.alarmemotivacional.action.START_ALARM"
         const val ACTION_DISMISS = "com.example.alarmemotivacional.action.DISMISS_ALARM"
         const val EXTRA_REQUEST_CODE = "extra_request_code"
         const val EXTRA_SOUND_URI = "extra_sound_uri"
         const val EXTRA_ALARM_ID = "extra_alarm_id"
+        const val EXTRA_VIDEO_URI = "extra_video_uri"
 
         private const val NOTIFICATION_ID = 1
         private const val DISMISS_REQUEST_CODE = 1001

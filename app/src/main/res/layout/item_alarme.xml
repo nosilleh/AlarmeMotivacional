@@ -42,6 +42,16 @@
             android:textColor="#8F8F8F"
             android:textSize="12sp" />
 
+        <TextView
+            android:id="@+id/textVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textSound"
+            android:layout_marginTop="2dp"
+            android:text="@string/alarm_video_default"
+            android:textColor="#8F8F8F"
+            android:textSize="12sp" />
+
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switchAtivo"
             android:layout_width="wrap_content"

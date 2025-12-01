@@ -20,6 +20,7 @@ class AlarmAdapter(
         val textHora: TextView = itemView.findViewById(R.id.textHora)
         val textLabel: TextView = itemView.findViewById(R.id.textLabel)
         val textSound: TextView = itemView.findViewById(R.id.textSound)
+        val textVideo: TextView = itemView.findViewById(R.id.textVideo)
         val switchAtivo: MaterialSwitch = itemView.findViewById(R.id.switchAtivo)
     }
 
@@ -51,6 +52,7 @@ class AlarmAdapter(
         }
 
         holder.textSound.text = resolveSoundLabel(holder.itemView.context, alarme.soundUri)
+        holder.textVideo.text = resolveVideoLabel(holder.itemView.context, alarme.videoUri)
     }
 
     override fun getItemCount(): Int = lista.size
@@ -66,6 +68,14 @@ class AlarmAdapter(
             context.getString(R.string.alarm_sound_default)
         } else {
             context.getString(R.string.alarm_sound_custom, title)
+        }
+    }
+
+    private fun resolveVideoLabel(context: android.content.Context, videoUri: String?): String {
+        return if (videoUri.isNullOrBlank()) {
+            context.getString(R.string.alarm_video_default)
+        } else {
+            context.getString(R.string.alarm_video_custom)
         }
     }
 }
