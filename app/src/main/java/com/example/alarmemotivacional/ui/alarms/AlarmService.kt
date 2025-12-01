@@ -40,9 +40,9 @@ class AlarmService : Service() {
                 }
                 val alarme = resolverAlarme(intent)
                 startAlarm(alarme?.soundUri)
-                val notification = buildAlarmNotification()
+                val notification = buildAlarmNotification(alarme?.videoUri)
                 startForegroundSafe(notification)
-                startVideo(alarme?.videoUri)
+                startRingingUi(alarme?.videoUri)
             }
         }
 
@@ -135,9 +135,10 @@ class AlarmService : Service() {
         )
     }
 
-    private fun buildAlarmNotification(): Notification {
-        val openAppIntent = Intent(this, AlarmActivity::class.java).apply {
+    private fun buildAlarmNotification(videoUri: String?): Notification {
+        val openAppIntent = Intent(this, AlarmRingingActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra(AlarmRingingActivity.EXTRA_VIDEO_URI, videoUri)
         }
         val openAppPendingIntent = PendingIntent.getActivity(
             this,
@@ -178,24 +179,18 @@ class AlarmService : Service() {
             .build()
     }
 
-    private fun startVideo(videoUri: String?) {
-        if (videoUri.isNullOrBlank()) return
+    private fun startForegroundSafe(notification: Notification) {
+        runCatching { startForeground(NOTIFICATION_ID, notification) }
+    }
 
-        val uri = runCatching { Uri.parse(videoUri) }.getOrNull() ?: return
-
-        val intent = Intent(this, VideoActivity::class.java).apply {
-            action = Intent.ACTION_VIEW
-            data = uri
-            putExtra(VideoActivity.EXTRA_VIDEO_URI, videoUri)
+    private fun startRingingUi(videoUri: String?) {
+        val intent = Intent(this, AlarmRingingActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            putExtra(AlarmRingingActivity.EXTRA_VIDEO_URI, videoUri)
         }
 
         startActivity(intent)
-    }
-
-    private fun startForegroundSafe(notification: Notification) {
-        runCatching { startForeground(NOTIFICATION_ID, notification) }
     }
 
     companion object {

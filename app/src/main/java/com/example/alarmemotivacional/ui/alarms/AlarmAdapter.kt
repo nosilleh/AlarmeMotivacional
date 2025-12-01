@@ -13,6 +13,7 @@ import com.google.android.material.materialswitch.MaterialSwitch
 class AlarmAdapter(
     private val lista: MutableList<AlarmData>,
     private val onToggle: (AlarmData) -> Unit,
+    private val onAlarmClick: (AlarmData) -> Unit,
     private val onRemove: (AlarmData) -> Unit
 ) : RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder>() {
 
@@ -44,6 +45,10 @@ class AlarmAdapter(
         holder.switchAtivo.isChecked = alarme.isActive
         holder.switchAtivo.setOnCheckedChangeListener { _, isChecked ->
             onToggle(alarme.copy(isActive = isChecked))
+        }
+
+        holder.itemView.setOnClickListener {
+            onAlarmClick(alarme)
         }
 
         holder.itemView.setOnLongClickListener {
