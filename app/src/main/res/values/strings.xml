@@ -22,4 +22,9 @@
     <string name="exact_alarm_permission_missing">Não foi possível agendar sem a permissão de alarmes exatos. Habilite-a para ativar o alarme.</string>
     <string name="media_permission_denied">Permissão de mídia negada. Não foi possível abrir o seletor.</string>
     <string name="alarm_disabled_feedback">Alarme desativado.</string>
+    <string name="video_default_label">Vídeo selecionado: padrão</string>
+    <string name="video_selected_label">Vídeo selecionado</string>
+    <string name="select_video_button">Selecionar vídeo</string>
+    <string name="alarm_video_default">Vídeo padrão</string>
+    <string name="alarm_video_custom">Vídeo personalizado</string>
 </resources>

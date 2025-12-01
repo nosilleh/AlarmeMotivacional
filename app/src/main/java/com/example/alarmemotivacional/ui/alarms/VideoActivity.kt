@@ -14,12 +14,15 @@ class VideoActivity : AppCompatActivity() {
 
         val videoView = findViewById<VideoView>(R.id.videoView)
 
-        // Recuperando o vídeo passado pela AddAlarmActivity (em breve implementaremos isso)
-        val videoUri = intent.getStringExtra("video_uri")
+        val videoUri = intent.getStringExtra(EXTRA_VIDEO_URI) ?: intent.dataString
 
         if (videoUri != null) {
             videoView.setVideoURI(Uri.parse(videoUri))
             videoView.start()
         }
+    }
+
+    companion object {
+        const val EXTRA_VIDEO_URI = "video_uri"
     }
 }
