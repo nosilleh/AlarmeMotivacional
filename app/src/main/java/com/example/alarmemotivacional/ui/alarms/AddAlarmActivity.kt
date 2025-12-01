@@ -11,12 +11,13 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.compose.ui.platform.ComposeView
 import com.example.alarmemotivacional.R
+import java.util.Calendar
 
 class AddAlarmActivity : AppCompatActivity() {
 
@@ -26,6 +27,9 @@ class AddAlarmActivity : AppCompatActivity() {
     private lateinit var textSoundSelected: TextView
     private lateinit var textVideoSelected: TextView
     private var alarmeEditado: AlarmData? = null
+    private var selectedHour: Int = 0
+    private var selectedMinute: Int = 0
+    private lateinit var timePickerContainer: ComposeView
 
     companion object {
         private const val REQUEST_PICK_RINGTONE = 1001
@@ -33,6 +37,8 @@ class AddAlarmActivity : AppCompatActivity() {
         private const val REQUEST_PICK_VIDEO = 1003
         private const val KEY_SELECTED_SOUND_URI = "selected_sound_uri"
         private const val KEY_SELECTED_VIDEO_URI = "selected_video_uri"
+        private const val KEY_SELECTED_HOUR = "selected_hour"
+        private const val KEY_SELECTED_MINUTE = "selected_minute"
         const val EXTRA_ALARM_ID = "extra_alarm_id"
     }
 
@@ -50,18 +56,30 @@ class AddAlarmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_alarm)
 
-        val timePicker = findViewById<TimePicker>(R.id.timePicker)
+        val now = Calendar.getInstance()
+        selectedHour = savedInstanceState?.getInt(KEY_SELECTED_HOUR)
+            ?: now.get(Calendar.HOUR_OF_DAY)
+        selectedMinute = savedInstanceState?.getInt(KEY_SELECTED_MINUTE)
+            ?: now.get(Calendar.MINUTE)
+
         val btnSave = findViewById<Button>(R.id.btnSaveAlarm)
 
         val btnSelectSound = findViewById<Button>(R.id.btnSelectSound)
         val btnSelectVideo = findViewById<Button>(R.id.btnSelectVideo)
         textSoundSelected = findViewById(R.id.textSoundSelected)
         textVideoSelected = findViewById(R.id.textVideoSelected)
+        timePickerContainer = findViewById(R.id.timePickerContainer)
+        val textAddTitle = findViewById<TextView>(R.id.textAddTitle)
 
         somSelecionado = savedInstanceState?.getString(KEY_SELECTED_SOUND_URI)?.let { Uri.parse(it) }
         videoSelecionado = savedInstanceState?.getString(KEY_SELECTED_VIDEO_URI)?.let { Uri.parse(it) }
 
-        carregarAlarmeExistente(timePicker)
+        if (savedInstanceState == null) {
+            carregarAlarmeExistente()
+        }
+
+        configurarSeletorHora(textAddTitle)
+        atualizarTituloTempo(textAddTitle)
 
         atualizarLabelSom(somSelecionado)
         atualizarLabelVideo(videoSelecionado)
@@ -72,11 +90,7 @@ class AddAlarmActivity : AppCompatActivity() {
 
         // ---------------- SALVAR ALARME ----------------
         btnSave.setOnClickListener {
-
-            val hour = timePicker.hour
-            val minute = timePicker.minute
-
-            val alarme = montarAlarme(hour, minute)
+            val alarme = montarAlarme(selectedHour, selectedMinute)
             salvarOuAtualizar(alarme)
         }
     }
@@ -110,6 +124,8 @@ class AddAlarmActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(KEY_SELECTED_SOUND_URI, somSelecionado?.toString())
         outState.putString(KEY_SELECTED_VIDEO_URI, videoSelecionado?.toString())
+        outState.putInt(KEY_SELECTED_HOUR, selectedHour)
+        outState.putInt(KEY_SELECTED_MINUTE, selectedMinute)
         super.onSaveInstanceState(outState)
     }
 
@@ -211,7 +227,7 @@ class AddAlarmActivity : AppCompatActivity() {
         }
     }
 
-    private fun carregarAlarmeExistente(timePicker: TimePicker) {
+    private fun carregarAlarmeExistente() {
         val alarmId = intent.getLongExtra(EXTRA_ALARM_ID, -1L)
         if (alarmId == -1L) return
 
@@ -219,11 +235,35 @@ class AddAlarmActivity : AppCompatActivity() {
         val existente = storage.getAlarmes().firstOrNull { it.id == alarmId }
         if (existente != null) {
             alarmeEditado = existente
-            timePicker.hour = existente.hour
-            timePicker.minute = existente.minute
+            selectedHour = existente.hour
+            selectedMinute = existente.minute
             somSelecionado = existente.soundUri?.let { Uri.parse(it) }
             videoSelecionado = existente.videoUri?.let { Uri.parse(it) }
         }
+    }
+
+    private fun configurarSeletorHora(textAddTitle: TextView) {
+        timePickerContainer.setContent {
+            AlarmComposeTheme {
+                AlarmTimeSelector(
+                    hour = selectedHour,
+                    minute = selectedMinute,
+                    onTimeChanged = { hour, minute ->
+                        selectedHour = hour
+                        selectedMinute = minute
+                        atualizarTituloTempo(textAddTitle)
+                    },
+                    onAdditionalSettings = {
+                        atualizarTituloTempo(textAddTitle)
+                    }
+                )
+            }
+        }
+    }
+
+    private fun atualizarTituloTempo(textView: TextView) {
+        val (hours, minutes) = calcularTempoParaDisparo(selectedHour, selectedMinute)
+        textView.text = getString(R.string.alarm_will_ring_in, hours, minutes)
     }
 
     private fun montarAlarme(hour: Int, minute: Int): AlarmData {
