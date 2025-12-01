@@ -53,7 +53,7 @@ class AlarmScheduler(private val context: Context) {
     }
 
     private fun criarPendingIntent(alarme: AlarmData): PendingIntent {
-        val requestCode = (alarme.id % Int.MAX_VALUE).toInt()
+        val requestCode = buildRequestCode(alarme.id)
 
         val intent = Intent(context, AlarmService::class.java).apply {
             action = AlarmService.ACTION_START_ALARM
@@ -69,5 +69,8 @@ class AlarmScheduler(private val context: Context) {
         } else {
             PendingIntent.getService(context, requestCode, intent, flags)
         }
+    }
+    companion object {
+        fun buildRequestCode(alarmId: Long): Int = (alarmId % Int.MAX_VALUE).toInt()
     }
 }
