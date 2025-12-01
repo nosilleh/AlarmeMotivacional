@@ -78,12 +78,11 @@
                         android:textSize="14sp"
                         tools:text="O alarme disparará em 23 horas e 59 minutos" />
 
-                    <TimePicker
-                        android:id="@+id/timePicker"
+                    <androidx.compose.ui.platform.ComposeView
+                        android:id="@+id/timePickerContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:timePickerMode="spinner" />
+                        android:layout_marginTop="8dp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

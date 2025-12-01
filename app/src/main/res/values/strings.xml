@@ -11,11 +11,15 @@
 
     <string name="add_alarm_title">Adicionar alarme</string>
     <string name="add_alarm_instruction">O alarme disparará em 23 horas e 59 minutos</string>
+    <string name="edit_alarm_title">Editar alarme</string>
+    <string name="alarm_will_ring_in">O alarme disparará em %1$d horas e %2$d minutos</string>
     <string name="sound_default_label">Som selecionado: padrão</string>
     <string name="sound_selected_label">Som selecionado: %1$s</string>
     <string name="sound_unknown_label">Som selecionado: indisponível</string>
     <string name="select_sound_button">Toque</string>
     <string name="save_alarm_button">Concluído</string>
+    <string name="additional_settings_button">Configurações adicionais</string>
+    <string name="edit_time_button">Editar horário</string>
     <string name="alarm_sound_default">Som padrão</string>
     <string name="alarm_sound_custom">Som: %1$s</string>
     <string name="notification_permission_denied">Precisamos da permissão de notificações para tocar o alarme.</string>
