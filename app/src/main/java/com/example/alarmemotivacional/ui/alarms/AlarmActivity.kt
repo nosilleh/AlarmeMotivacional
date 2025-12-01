@@ -45,6 +45,14 @@ class AlarmActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        if (isTaskRoot) {
+            moveTaskToBack(true)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun pedirPermissaoAlarme() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !MiuiHelper.hasExactAlarmPermission(this)) {
             val intent = Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
