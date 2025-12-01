@@ -5,6 +5,9 @@
     <!-- Permissão para alarmes exatos -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
+    <!-- Recebe o broadcast de reinício para reativar alarmes -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <!-- Permite tocar som mesmo com tela bloqueada -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
@@ -63,6 +66,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
 
