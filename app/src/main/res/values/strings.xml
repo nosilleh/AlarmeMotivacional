@@ -27,4 +27,11 @@
     <string name="select_video_button">Selecionar vídeo</string>
     <string name="alarm_video_default">Vídeo padrão</string>
     <string name="alarm_video_custom">Vídeo personalizado</string>
+    <string name="alarm_ringing_title">Alarme tocando</string>
+    <string name="alarm_ringing_subtitle">Pré-toque ativo</string>
+    <string name="alarm_ringing_action">Toque em qualquer lugar para ver seu vídeo motivacional</string>
+    <string name="alarm_ringing_hint">O som será interrompido ao tocar</string>
+    <string name="alarm_options_title">Opções do alarme</string>
+    <string name="alarm_option_edit">Editar</string>
+    <string name="alarm_option_delete">Excluir</string>
 </resources>

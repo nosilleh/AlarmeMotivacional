@@ -25,6 +25,7 @@ class AddAlarmActivity : AppCompatActivity() {
     private var onPermissionGranted: (() -> Unit)? = null
     private lateinit var textSoundSelected: TextView
     private lateinit var textVideoSelected: TextView
+    private var alarmeEditado: AlarmData? = null
 
     companion object {
         private const val REQUEST_PICK_RINGTONE = 1001
@@ -32,6 +33,7 @@ class AddAlarmActivity : AppCompatActivity() {
         private const val REQUEST_PICK_VIDEO = 1003
         private const val KEY_SELECTED_SOUND_URI = "selected_sound_uri"
         private const val KEY_SELECTED_VIDEO_URI = "selected_video_uri"
+        const val EXTRA_ALARM_ID = "extra_alarm_id"
     }
 
     private val mediaPermissions: Array<String>
@@ -58,6 +60,9 @@ class AddAlarmActivity : AppCompatActivity() {
 
         somSelecionado = savedInstanceState?.getString(KEY_SELECTED_SOUND_URI)?.let { Uri.parse(it) }
         videoSelecionado = savedInstanceState?.getString(KEY_SELECTED_VIDEO_URI)?.let { Uri.parse(it) }
+
+        carregarAlarmeExistente(timePicker)
+
         atualizarLabelSom(somSelecionado)
         atualizarLabelVideo(videoSelecionado)
 
@@ -71,37 +76,8 @@ class AddAlarmActivity : AppCompatActivity() {
             val hour = timePicker.hour
             val minute = timePicker.minute
 
-            val alarme = AlarmData(
-                hour = hour,
-                minute = minute,
-                isActive = true,
-                soundUri = somSelecionado?.toString(),
-                videoUri = videoSelecionado?.toString()
-            )
-
-            val scheduler = AlarmScheduler(this)
-            val alarmeAgendado = scheduler.ligarAlarme(alarme)
-
-            val storage = AlarmStorage(this)
-            val alarmeParaSalvar = if (alarmeAgendado) alarme else alarme.copy(isActive = false)
-            storage.salvarAlarme(alarmeParaSalvar)
-
-            if (!alarmeAgendado) {
-                Toast.makeText(
-                    this,
-                    R.string.exact_alarm_permission_missing,
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Alarme definido para ${alarme.formattedTime}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            setResult(Activity.RESULT_OK)
-            finish()
+            val alarme = montarAlarme(hour, minute)
+            salvarOuAtualizar(alarme)
         }
     }
 
@@ -233,5 +209,72 @@ class AddAlarmActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    private fun carregarAlarmeExistente(timePicker: TimePicker) {
+        val alarmId = intent.getLongExtra(EXTRA_ALARM_ID, -1L)
+        if (alarmId == -1L) return
+
+        val storage = AlarmStorage(this)
+        val existente = storage.getAlarmes().firstOrNull { it.id == alarmId }
+        if (existente != null) {
+            alarmeEditado = existente
+            timePicker.hour = existente.hour
+            timePicker.minute = existente.minute
+            somSelecionado = existente.soundUri?.let { Uri.parse(it) }
+            videoSelecionado = existente.videoUri?.let { Uri.parse(it) }
+        }
+    }
+
+    private fun montarAlarme(hour: Int, minute: Int): AlarmData {
+        val ativo = alarmeEditado?.isActive ?: true
+
+        return alarmeEditado?.copy(
+            hour = hour,
+            minute = minute,
+            isActive = ativo,
+            soundUri = somSelecionado?.toString(),
+            videoUri = videoSelecionado?.toString()
+        ) ?: AlarmData(
+            hour = hour,
+            minute = minute,
+            isActive = ativo,
+            soundUri = somSelecionado?.toString(),
+            videoUri = videoSelecionado?.toString()
+        )
+    }
+
+    private fun salvarOuAtualizar(alarme: AlarmData) {
+        val scheduler = AlarmScheduler(this)
+        alarmeEditado?.let { scheduler.desligarAlarme(it) }
+
+        val deveAgendar = alarme.isActive
+        val alarmeAgendado = if (deveAgendar) scheduler.ligarAlarme(alarme) else true
+
+        val storage = AlarmStorage(this)
+        val alarmeParaSalvar = if (deveAgendar && !alarmeAgendado) alarme.copy(isActive = false) else alarme
+
+        if (alarmeEditado == null) {
+            storage.salvarAlarme(alarmeParaSalvar)
+        } else {
+            storage.atualizarAlarme(alarmeParaSalvar)
+        }
+
+        if (!alarmeAgendado && deveAgendar) {
+            Toast.makeText(
+                this,
+                R.string.exact_alarm_permission_missing,
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            Toast.makeText(
+                this,
+                "Alarme definido para ${alarme.formattedTime}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        setResult(Activity.RESULT_OK)
+        finish()
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -34,7 +35,7 @@ class AlarmActivity : AppCompatActivity() {
         textEmpty = findViewById(R.id.textEmpty)
         recyclerView = findViewById(R.id.recyclerAlarmes)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = AlarmAdapter(alarmes, ::onToggleAlarm, ::onRemoveAlarm)
+        adapter = AlarmAdapter(alarmes, ::onToggleAlarm, ::onSelectAlarm, ::onRemoveAlarm)
         recyclerView.adapter = adapter
 
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
@@ -122,6 +123,31 @@ class AlarmActivity : AppCompatActivity() {
         scheduler.desligarAlarme(alarme)
 
         atualizarLista()
+    }
+
+    private fun onSelectAlarm(alarme: AlarmData) {
+        val options = arrayOf(
+            getString(R.string.alarm_option_edit),
+            getString(R.string.alarm_option_delete)
+        )
+
+        AlertDialog.Builder(this)
+            .setTitle(R.string.alarm_options_title)
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> editarAlarme(alarme)
+                    1 -> onRemoveAlarm(alarme)
+                }
+            }
+            .show()
+    }
+
+    private fun editarAlarme(alarme: AlarmData) {
+        val intent = Intent(this, AddAlarmActivity::class.java).apply {
+            putExtra(AddAlarmActivity.EXTRA_ALARM_ID, alarme.id)
+        }
+
+        startActivity(intent)
     }
 
     private fun solicitarPermissaoNotificacao() {
