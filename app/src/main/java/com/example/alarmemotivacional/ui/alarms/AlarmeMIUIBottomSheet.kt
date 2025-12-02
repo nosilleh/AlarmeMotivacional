@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import com.chargemap.compose.numberpicker.NumberPicker
+import com.example.alarmemotivacional.R
 import java.time.Duration
 import java.time.LocalDateTime
 
