@@ -5,7 +5,7 @@
     style="@style/DeskClockCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="12dp"
+    android:layout_marginVertical="@dimen/deskclock_vertical_gap"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground">
@@ -13,18 +13,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="96dp"
-        android:padding="20dp">
+        android:minHeight="104dp"
+        android:padding="@dimen/deskclock_card_padding">
 
         <TextView
             android:id="@+id/textHora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
+            android:fontFamily="sans-serif-medium"
             android:text="@string/exemplo_hora"
             android:textColor="@color/deskclock_on_surface"
-            android:textSize="36sp"
-            android:textStyle="bold"
+            android:textSize="40sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="06:10" />
@@ -33,11 +32,11 @@
             android:id="@+id/textLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/deskclock_subtext_spacing"
             android:fontFamily="sans-serif-medium"
             android:text="@string/exemplo_label"
             android:textColor="@color/deskclock_on_surface_secondary"
-            android:textSize="14sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textHora"
@@ -48,7 +47,7 @@
             style="@style/DeskClockLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/deskclock_subtext_spacing"
             android:text="@string/alarm_sound_default"
             app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
             app:layout_constraintStart_toStartOf="parent"

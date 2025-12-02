@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/deskclock_divider">
+    android:color="@color/deskclock_ripple">
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
             <corners android:radius="18dp" />
@@ -12,7 +12,7 @@
             <item android:state_selected="true">
                 <shape android:shape="rectangle">
                     <corners android:radius="18dp" />
-                    <solid android:color="#1A2979FF" />
+                    <solid android:color="#1400B0FF" />
                 </shape>
             </item>
             <item>

@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/deskclock_background"
-    android:paddingHorizontal="20dp"
-    android:paddingTop="20dp">
+    android:paddingHorizontal="@dimen/deskclock_screen_padding"
+    android:paddingTop="@dimen/deskclock_title_top_padding">
 
-
-<TextView
-        style="@style/DeskClockHeadline"
+    <TextView
         android:id="@+id/titleStopwatch"
+        style="@style/DeskClockHeadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/stopwatch_title"
@@ -34,11 +33,11 @@
         android:id="@+id/textStopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="48dp"
         android:text="00:00.00"
         android:textColor="@color/deskclock_on_surface"
         android:textSize="48sp"
-        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleStopwatch" />
@@ -46,18 +45,21 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/btnStopwatchPlay"
         style="@style/DeskClockCard"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/deskclock_play_button"
+        android:layout_height="@dimen/deskclock_play_button"
         android:layout_marginTop="32dp"
         android:clickable="true"
         android:focusable="true"
+        app:cardCornerRadius="@dimen/card_corner_circle"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="@color/deskclock_surface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textStopwatch">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/deskclock_play_icon"
+            android:layout_height="@dimen/deskclock_play_icon"
             android:layout_gravity="center"
             android:src="@drawable/ic_play"
             android:tint="@color/deskclock_primary" />
