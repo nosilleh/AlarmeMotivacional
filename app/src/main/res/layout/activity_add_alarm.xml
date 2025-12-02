@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="120dp">
+        android:paddingHorizontal="@dimen/deskclock_screen_padding"
+        android:paddingTop="@dimen/deskclock_title_top_padding"
+        android:paddingBottom="132dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 style="@style/DeskClockCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:padding="@dimen/deskclock_card_padding">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                             android:text="@string/add_alarm_title"
                             android:textColor="@color/deskclock_on_surface"
                             android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:fontFamily="sans-serif-medium" />
 
                         <ImageButton
                             android:id="@+id/btnSave"
@@ -72,7 +72,7 @@
                         android:id="@+id/textAddTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/add_alarm_instruction"
                         android:textColor="@color/deskclock_on_surface_secondary"
                         android:textSize="14sp"
@@ -113,7 +113,7 @@
                             android:text="@string/select_sound_button"
                             android:textColor="@color/deskclock_on_surface"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:fontFamily="sans-serif-medium" />
 
                         <TextView
                             android:id="@+id/textSoundSelected"
@@ -148,7 +148,7 @@
                             android:text="@string/select_video_button"
                             android:textColor="@color/deskclock_on_surface"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:fontFamily="sans-serif-medium" />
 
                         <TextView
                             android:id="@+id/textVideoSelected"
@@ -183,7 +183,8 @@
                             android:layout_weight="1"
                             android:text="@string/vibrate_on_alarm"
                             android:textColor="@color/deskclock_on_surface"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            android:fontFamily="sans-serif-medium" />
 
                         <com.google.android.material.materialswitch.MaterialSwitch
                             style="@style/DeskClockSwitch"
@@ -205,7 +206,8 @@
                             android:layout_weight="1"
                             android:text="@string/delete_after_alarm"
                             android:textColor="@color/deskclock_on_surface"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            android:fontFamily="sans-serif-medium" />
 
                         <com.google.android.material.materialswitch.MaterialSwitch
                             style="@style/DeskClockSwitch"

@@ -2,126 +2,114 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
-    android:background="@color/deskclock_background"
+    android:layout_height="@dimen/deskclock_bottom_nav_height"
+    android:background="@drawable/bottom_nav_background"
     android:gravity="center"
     android:orientation="horizontal"
-    android:paddingHorizontal="12dp">
+    android:paddingHorizontal="16dp">
 
     <LinearLayout
         android:id="@+id/navAlarme"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingVertical="8dp"
+        android:paddingVertical="10dp"
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/nav_item_background">
 
         <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="@dimen/deskclock_bottom_nav_icon"
+            android:layout_height="@dimen/deskclock_bottom_nav_icon"
+            android:layout_marginBottom="2dp"
             android:duplicateParentState="true"
             android:src="@drawable/ic_alarm"
             android:tint="@color/bottom_nav_tint" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/DeskClockBottomNav"
             android:duplicateParentState="true"
-            android:text="@string/tab_alarm"
-            android:textColor="@color/bottom_nav_tint"
-            android:textSize="12sp" />
+            android:text="@string/tab_alarm" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/navWorld"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingVertical="8dp"
+        android:paddingVertical="10dp"
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/nav_item_background">
 
         <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="@dimen/deskclock_bottom_nav_icon"
+            android:layout_height="@dimen/deskclock_bottom_nav_icon"
+            android:layout_marginBottom="2dp"
             android:duplicateParentState="true"
             android:src="@drawable/ic_world"
             android:tint="@color/bottom_nav_tint" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/DeskClockBottomNav"
             android:duplicateParentState="true"
-            android:text="@string/tab_world"
-            android:textColor="@color/bottom_nav_tint"
-            android:textSize="12sp" />
+            android:text="@string/tab_world" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/navStopwatch"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingVertical="8dp"
+        android:paddingVertical="10dp"
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/nav_item_background">
 
         <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="@dimen/deskclock_bottom_nav_icon"
+            android:layout_height="@dimen/deskclock_bottom_nav_icon"
+            android:layout_marginBottom="2dp"
             android:duplicateParentState="true"
             android:src="@drawable/ic_stopwatch"
             android:tint="@color/bottom_nav_tint" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/DeskClockBottomNav"
             android:duplicateParentState="true"
-            android:text="@string/tab_stopwatch"
-            android:textColor="@color/bottom_nav_tint"
-            android:textSize="12sp" />
+            android:text="@string/tab_stopwatch" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/navTimer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingVertical="8dp"
+        android:paddingVertical="10dp"
         android:clickable="true"
         android:focusable="true"
         android:background="@drawable/nav_item_background">
 
         <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="@dimen/deskclock_bottom_nav_icon"
+            android:layout_height="@dimen/deskclock_bottom_nav_icon"
+            android:layout_marginBottom="2dp"
             android:duplicateParentState="true"
             android:src="@drawable/ic_timer"
             android:tint="@color/bottom_nav_tint" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/DeskClockBottomNav"
             android:duplicateParentState="true"
-            android:text="@string/tab_timer"
-            android:textColor="@color/bottom_nav_tint"
-            android:textSize="12sp" />
+            android:text="@string/tab_timer" />
     </LinearLayout>
 
 </LinearLayout>

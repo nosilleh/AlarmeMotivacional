@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/deskclock_background"
-    android:paddingHorizontal="20dp"
-    android:paddingTop="20dp">
+    android:paddingHorizontal="@dimen/deskclock_screen_padding"
+    android:paddingTop="@dimen/deskclock_title_top_padding">
 
 
     <TextView
@@ -34,9 +34,10 @@
         android:id="@+id/timerPickers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
         android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTimer">
@@ -46,38 +47,43 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:theme="@style/DeskClockPickerText"
             android:solidColor="@color/deskclock_background"
             android:selectionDividerHeight="0dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="8dp"
+            android:paddingHorizontal="10dp"
             android:text=":"
-            android:textColor="@color/deskclock_on_surface"
-            android:textSize="24sp" />
+            android:textColor="@color/deskclock_on_surface_secondary"
+            android:textSize="26sp"
+            android:fontFamily="sans-serif-medium" />
 
         <NumberPicker
             android:id="@+id/pickerMinutes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:theme="@style/DeskClockPickerText"
             android:solidColor="@color/deskclock_background"
             android:selectionDividerHeight="0dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="8dp"
+            android:paddingHorizontal="10dp"
             android:text=":"
-            android:textColor="@color/deskclock_on_surface"
-            android:textSize="24sp" />
+            android:textColor="@color/deskclock_on_surface_secondary"
+            android:textSize="26sp"
+            android:fontFamily="sans-serif-medium" />
 
         <NumberPicker
             android:id="@+id/pickerSeconds"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:theme="@style/DeskClockPickerText"
             android:solidColor="@color/deskclock_background"
             android:selectionDividerHeight="0dp" />
     </LinearLayout>
@@ -85,18 +91,21 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/btnTimerPlay"
         style="@style/DeskClockCard"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/deskclock_play_button"
+        android:layout_height="@dimen/deskclock_play_button"
         android:layout_marginTop="32dp"
         android:clickable="true"
         android:focusable="true"
+        app:cardCornerRadius="@dimen/card_corner_circle"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="@color/deskclock_surface"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timerPickers">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/deskclock_play_icon"
+            android:layout_height="@dimen/deskclock_play_icon"
             android:layout_gravity="center"
             android:src="@drawable/ic_play"
             android:tint="@color/deskclock_primary" />

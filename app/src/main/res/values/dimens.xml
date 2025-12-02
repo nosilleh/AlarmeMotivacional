@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="deskclock_screen_padding">24dp</dimen>
+    <dimen name="deskclock_title_top_padding">24dp</dimen>
+    <dimen name="deskclock_vertical_gap">12dp</dimen>
+    <dimen name="deskclock_card_padding">20dp</dimen>
+    <dimen name="deskclock_subtext_spacing">6dp</dimen>
+
+    <dimen name="card_corner_large">24dp</dimen>
+    <dimen name="card_corner_circle">36dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+
+    <dimen name="icon_small">20dp</dimen>
+    <dimen name="icon_regular">24dp</dimen>
+    <dimen name="icon_large">32dp</dimen>
+
+    <dimen name="deskclock_bottom_nav_height">84dp</dimen>
+    <dimen name="deskclock_bottom_nav_icon">28dp</dimen>
+    <dimen name="deskclock_bottom_nav_label">10sp</dimen>
+
+    <dimen name="deskclock_play_button">72dp</dimen>
+    <dimen name="deskclock_play_icon">32dp</dimen>
+    <dimen name="deskclock_fab_size">70dp</dimen>
+</resources>
