@@ -13,7 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="104dp"
+        android:background="@drawable/miui_alarm_card_background"
+        android:clipToOutline="true"
+        android:minHeight="96dp"
         android:padding="@dimen/deskclock_card_padding">
 
         <TextView
@@ -36,11 +38,11 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/exemplo_label"
             android:textColor="@color/deskclock_on_surface_secondary"
-            android:textSize="15sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textHora"
-            tools:text="Diariamente" />
+            tools:text="Uma vez" />
 
         <TextView
             android:id="@+id/textSound"
@@ -49,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/deskclock_subtext_spacing"
             android:text="@string/alarm_sound_default"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textLabel"
@@ -61,6 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/alarm_video_default"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textSound"
