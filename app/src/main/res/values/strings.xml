@@ -2,7 +2,7 @@
     <string name="app_name">AlarmeMotivacional</string>
 
     <string name="exemplo_hora">07:30</string>
-    <string name="exemplo_label">Despertar</string>
+    <string name="exemplo_label">Uma vez</string>
     <string name="alarm_disabled">Alarme desativado</string>
 
     <string name="alarm_notification_title">Alarme motivacional tocando</string>
