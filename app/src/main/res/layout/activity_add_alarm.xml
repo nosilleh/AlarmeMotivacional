@@ -20,71 +20,79 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.google.android.material.card.MaterialCardView
-                style="@style/DeskClockCard"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/deskclock_card_padding">
+                android:background="@drawable/poco_header_background"
+                android:padding="16dp"
+                android:foreground="?attr/selectableItemBackground">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageButton
-                            android:id="@+id/btnClose"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/round_ripple_button"
-                            android:contentDescription="@string/back"
-                            android:padding="10dp"
-                            android:tint="@color/deskclock_on_surface_secondary"
-                            app:srcCompat="@drawable/ic_back" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_weight="1"
-                            android:text="@string/add_alarm_title"
-                            android:textColor="@color/deskclock_on_surface"
-                            android:textSize="20sp"
-                            android:fontFamily="sans-serif-medium" />
-
-                        <ImageButton
-                            android:id="@+id/btnSave"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/round_ripple_button"
-                            android:contentDescription="@string/save_alarm_button"
-                            android:padding="10dp"
-                            android:tint="@color/deskclock_on_surface"
-                            app:srcCompat="@drawable/ic_check" />
-                    </LinearLayout>
+                    <ImageButton
+                        android:id="@+id/btnClose"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/round_ripple_button"
+                        android:contentDescription="@string/back"
+                        android:padding="10dp"
+                        android:tint="@color/deskclock_background"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_back" />
 
                     <TextView
                         android:id="@+id/textAddTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="12dp"
+                        android:text="@string/add_alarm_title"
+                        android:textColor="@color/deskclock_background"
+                        android:textSize="20sp"
+                        android:fontFamily="sans-serif-medium"
+                        app:layout_constraintEnd_toStartOf="@+id/btnSave"
+                        app:layout_constraintStart_toEndOf="@id/btnClose"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Novo alarme" />
+
+                    <ImageButton
+                        android:id="@+id/btnSave"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/round_ripple_button"
+                        android:contentDescription="@string/save_alarm_button"
+                        android:padding="10dp"
+                        android:tint="@color/deskclock_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_check" />
+
+                    <TextView
+                        android:id="@+id/textAddHint"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:text="@string/add_alarm_instruction"
-                        android:textColor="@color/deskclock_on_surface_secondary"
+                        android:textColor="@color/deskclock_background"
                         android:textSize="14sp"
+                        android:fontFamily="sans-serif"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textAddTitle"
                         tools:text="O alarme disparará em 23 horas e 59 minutos" />
 
                     <androidx.compose.ui.platform.ComposeView
                         android:id="@+id/timePickerContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textAddHint" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </FrameLayout>
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/DeskClockCard"
@@ -250,7 +258,7 @@
         android:layout_marginBottom="24dp"
         android:text="@string/save_alarm_button"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@color/deskclock_background"
         app:backgroundTint="@color/deskclock_primary"
         app:cornerRadius="18dp"
         app:strokeColor="@color/deskclock_primary_variant"

@@ -3,5 +3,6 @@
     android:shape="rectangle">
     <size android:height="@dimen/deskclock_bottom_nav_height" />
     <solid android:color="@color/bottom_nav_background" />
-    <stroke android:width="0.5dp" android:color="@color/card_stroke" />
+    <corners android:topLeftRadius="28dp" android:topRightRadius="28dp" />
+    <stroke android:width="0.75dp" android:color="@color/card_stroke" />
 </shape>
