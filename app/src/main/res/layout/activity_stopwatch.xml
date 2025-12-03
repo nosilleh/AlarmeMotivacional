@@ -102,7 +102,7 @@
                 app:cardCornerRadius="@dimen/card_corner_circle"
                 app:cardElevation="6dp"
                 app:cardBackgroundColor="@color/deskclock_primary"
-                app:layout_gravity="center">
+                android:layout_gravity="center">
 
                 <ImageView
                     android:layout_width="@dimen/deskclock_play_icon"
