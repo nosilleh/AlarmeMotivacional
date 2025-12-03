@@ -3,28 +3,28 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- MIUI-inspired dark palette -->
-    <color name="deskclock_primary">#00B0FF</color>
-    <color name="deskclock_primary_variant">#0094E4</color>
-    <color name="deskclock_background">#0F1115</color>
-    <color name="deskclock_surface">#171A20</color>
-    <color name="deskclock_surface_muted">#1E2128</color>
-    <color name="deskclock_card_background">#1A1E25</color>
-    <color name="deskclock_on_surface">#F5F7FB</color>
-    <color name="deskclock_on_surface_secondary">#A7AEBF</color>
-    <color name="deskclock_divider">#26FFFFFF</color>
+    <!-- POCO-inspired night palette (matches primary design) -->
+    <color name="deskclock_primary">#FFC640</color>
+    <color name="deskclock_primary_variant">#F5A623</color>
+    <color name="deskclock_background">#0B0F15</color>
+    <color name="deskclock_surface">#111723</color>
+    <color name="deskclock_surface_muted">#181F2D</color>
+    <color name="deskclock_card_background">#111723</color>
+    <color name="deskclock_on_surface">#F3F6FB</color>
+    <color name="deskclock_on_surface_secondary">#A8B0C3</color>
+    <color name="deskclock_divider">#22FFFFFF</color>
     <color name="deskclock_card_shadow">#26000000</color>
-    <color name="miui_card_background">#1A1E25</color>
+    <color name="miui_card_background">#111723</color>
     <color name="miui_card_shadow">#33000000</color>
 
     <!-- Controls -->
     <color name="switch_active">@color/deskclock_primary</color>
-    <color name="switch_inactive">#4DFFFFFF</color>
-    <color name="switch_track_active">#3300B0FF</color>
-    <color name="switch_track_inactive">#33FFFFFF</color>
-    <color name="bottom_nav_inactive">#A7AEBF</color>
+    <color name="switch_inactive">#657088</color>
+    <color name="switch_track_active">#33FFC640</color>
+    <color name="switch_track_inactive">#33657088</color>
+    <color name="bottom_nav_inactive">#8790A7</color>
     <color name="bottom_nav_active">@color/deskclock_primary</color>
-    <color name="card_stroke">#26FFFFFF</color>
-    <color name="bottom_nav_background">#111319</color>
+    <color name="card_stroke">#1FFFFFFF</color>
+    <color name="bottom_nav_background">#0D111A</color>
     <color name="deskclock_ripple">#33FFFFFF</color>
 </resources>

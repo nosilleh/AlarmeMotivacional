@@ -8,107 +8,150 @@
     android:paddingHorizontal="@dimen/deskclock_screen_padding"
     android:paddingTop="@dimen/deskclock_title_top_padding">
 
-
-    <TextView
-        style="@style/DeskClockHeadline"
-        android:id="@+id/titleTimer"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/timerHeader"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/timer_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/btnTimerMenu"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/round_ripple_button"
-        android:contentDescription="@string/overflow_menu"
-        android:padding="10dp"
-        android:tint="@color/deskclock_on_surface_secondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_more_vert" />
-
-    <LinearLayout
-        android:id="@+id/timerPickers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingHorizontal="8dp"
+        android:background="@drawable/poco_surface_card"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleTimer">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <NumberPicker
-            android:id="@+id/pickerHours"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/DeskClockPickerText"
-            android:solidColor="@color/deskclock_background"
-            android:selectionDividerHeight="0dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:text=":"
-            android:textColor="@color/deskclock_on_surface_secondary"
-            android:textSize="26sp"
-            android:fontFamily="sans-serif-medium" />
+            <TextView
+                style="@style/DeskClockHeadline"
+                android:id="@+id/titleTimer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/timer_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnTimerMenu" />
 
-        <NumberPicker
-            android:id="@+id/pickerMinutes"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/DeskClockPickerText"
-            android:solidColor="@color/deskclock_background"
-            android:selectionDividerHeight="0dp" />
+            <ImageButton
+                android:id="@+id/btnTimerMenu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/round_ripple_button"
+                android:contentDescription="@string/overflow_menu"
+                android:padding="10dp"
+                android:tint="@color/deskclock_on_surface"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_more_vert" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:text=":"
-            android:textColor="@color/deskclock_on_surface_secondary"
-            android:textSize="26sp"
-            android:fontFamily="sans-serif-medium" />
-
-        <NumberPicker
-            android:id="@+id/pickerSeconds"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/DeskClockPickerText"
-            android:solidColor="@color/deskclock_background"
-            android:selectionDividerHeight="0dp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/timerHint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/timer_title"
+                android:textColor="@color/deskclock_on_surface_secondary"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/titleTimer"
+                tools:text="Defina o tempo e toque para começar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/btnTimerPlay"
         style="@style/DeskClockCard"
-        android:layout_width="@dimen/deskclock_play_button"
-        android:layout_height="@dimen/deskclock_play_button"
-        android:layout_marginTop="32dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="@dimen/card_corner_circle"
-        app:cardElevation="3dp"
-        app:cardBackgroundColor="@color/deskclock_surface"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:padding="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/timerPickers">
+        app:layout_constraintTop_toBottomOf="@id/timerHeader">
 
-        <ImageView
-            android:layout_width="@dimen/deskclock_play_icon"
-            android:layout_height="@dimen/deskclock_play_icon"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_play"
-            android:tint="@color/deskclock_primary" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/timerPickers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp">
+
+                <NumberPicker
+                    android:id="@+id/pickerHours"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:theme="@style/DeskClockPickerText"
+                    android:solidColor="@color/deskclock_background"
+                    android:selectionDividerHeight="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:text=":"
+                    android:textColor="@color/deskclock_on_surface_secondary"
+                    android:textSize="26sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <NumberPicker
+                    android:id="@+id/pickerMinutes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:theme="@style/DeskClockPickerText"
+                    android:solidColor="@color/deskclock_background"
+                    android:selectionDividerHeight="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:text=":"
+                    android:textColor="@color/deskclock_on_surface_secondary"
+                    android:textSize="26sp"
+                    android:fontFamily="sans-serif-medium" />
+
+                <NumberPicker
+                    android:id="@+id/pickerSeconds"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:theme="@style/DeskClockPickerText"
+                    android:solidColor="@color/deskclock_background"
+                    android:selectionDividerHeight="0dp" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnTimerPlay"
+                style="@style/DeskClockCard"
+                android:layout_width="@dimen/deskclock_play_button"
+                android:layout_height="@dimen/deskclock_play_button"
+                android:layout_marginTop="28dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="@dimen/card_corner_circle"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/deskclock_primary"
+                app:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="@dimen/deskclock_play_icon"
+                    android:layout_height="@dimen/deskclock_play_icon"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_play"
+                    android:tint="@color/deskclock_background" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <include
