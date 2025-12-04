@@ -1,0 +1,3 @@
+[submodule "references/relogio_pouco"]
+	path = references/relogio_pouco
+	url = https://github.com/nosilleh/relogio_pouco.git
