@@ -4,11 +4,14 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- POCO-inspired vibrant palette -->
+    <color name="deskclock_primary">#FFC640</color>
     <color name="deskclock_primary_variant">#F5A623</color>
     <color name="deskclock_background">#0C0F16</color>
     <color name="deskclock_surface">#131925</color>
     <color name="deskclock_surface_muted">#1A2130</color>
     <color name="deskclock_card_background">#121722</color>
+    <color name="deskclock_on_surface">#EEF1F6</color>
+    <color name="deskclock_on_surface_secondary">#A7AEC1</color>
     <color name="deskclock_divider">#22FFFFFF</color>
     <color name="deskclock_card_shadow">#26000000</color>
     <color name="miui_card_background">#121722</color>
