@@ -15,7 +15,7 @@
         <include
             android:id="@+id/actionBar"
             layout="@layout/deskclock_action_bar"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         <include
             android:id="@+id/summaryCard"
             layout="@layout/alarm_summary_card"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
         <include
             android:id="@+id/bottomNavigation"
             layout="@layout/bottom_nav_alarms"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,7 @@
 
     <include
         layout="@layout/deskclock_fab"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/deskclock_fab_margin" />
