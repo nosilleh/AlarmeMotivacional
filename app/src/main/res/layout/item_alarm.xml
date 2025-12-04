@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DeskClockCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/deskclock_vertical_gap"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_alarm_item"
+        android:clipToOutline="true"
+        android:minHeight="112dp"
+        android:padding="@dimen/deskclock_card_padding">
+
+        <View
+            android:id="@+id/activePill"
+            android:layout_width="6dp"
+            android:layout_height="0dp"
+            android:background="@color/deskclock_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textHora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/exemplo_hora"
+            android:textColor="@color/deskclock_on_surface"
+            android:textSize="44sp"
+            app:layout_constraintStart_toEndOf="@id/activePill"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="06:10" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switchAtivo"
+            style="@style/DeskClockSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            app:layout_constraintBottom_toTopOf="@+id/textLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/deskclock_subtext_spacing"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/exemplo_label"
+            android:textColor="@color/deskclock_on_surface_secondary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
+            app:layout_constraintStart_toStartOf="@id/textHora"
+            app:layout_constraintTop_toBottomOf="@id/textHora"
+            tools:text="Uma vez" />
+
+        <LinearLayout
+            android:id="@+id/mediaInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/switchAtivo"
+            app:layout_constraintStart_toStartOf="@id/textLabel"
+            app:layout_constraintTop_toBottomOf="@id/textLabel">
+
+            <TextView
+                android:id="@+id/textSound"
+                style="@style/DeskClockLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/alarm_sound_default"
+                android:visibility="gone"
+                tools:text="Toque padrão" />
+
+            <TextView
+                android:id="@+id/textVideo"
+                style="@style/DeskClockLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/alarm_video_default"
+                android:visibility="gone"
+                tools:text="Vídeo padrão" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

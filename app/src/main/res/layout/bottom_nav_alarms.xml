@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="22dp"
+    android:background="@drawable/bottom_nav_background">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="8dp"
+        android:background="@drawable/nav_item_background">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/tab_alarm"
+            android:tint="@color/bottom_nav_active"
+            app:srcCompat="@drawable/ic_alarm" />
+
+        <TextView
+            style="@style/DeskClockBottomNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/tab_alarm"
+            android:textColor="@color/bottom_nav_active" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="12dp"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="8dp"
+        android:background="@drawable/nav_item_background">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/tab_world"
+            android:tint="@color/bottom_nav_inactive"
+            app:srcCompat="@drawable/ic_world" />
+
+        <TextView
+            style="@style/DeskClockBottomNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/tab_world"
+            android:textColor="@color/bottom_nav_inactive" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="12dp"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="8dp"
+        android:background="@drawable/nav_item_background">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/tab_stopwatch"
+            android:tint="@color/bottom_nav_inactive"
+            app:srcCompat="@drawable/ic_stopwatch" />
+
+        <TextView
+            style="@style/DeskClockBottomNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/tab_stopwatch"
+            android:textColor="@color/bottom_nav_inactive" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="12dp"
+        android:layout_height="1dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingVertical="8dp"
+        android:background="@drawable/nav_item_background">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/tab_timer"
+            android:tint="@color/bottom_nav_inactive"
+            app:srcCompat="@drawable/ic_timer" />
+
+        <TextView
+            style="@style/DeskClockBottomNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/tab_timer"
+            android:textColor="@color/bottom_nav_inactive" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="@dimen/deskclock_summary_corner"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_alarm_summary"
+        android:minHeight="@dimen/deskclock_summary_height"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/summaryIcon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@drawable/fab_background"
+            android:contentDescription="@string/alarm_title"
+            android:padding="16dp"
+            android:src="@drawable/ic_alarm"
+            android:tint="@color/deskclock_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/summaryTitle"
+            style="@style/DeskClockHeadline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/deskclock_background"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/summaryIcon"
+            app:layout_constraintTop_toTopOf="@id/summaryIcon"
+            tools:text="Próximo alarme" />
+
+        <TextView
+            android:id="@+id/textNextAlarm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/alarm_next_placeholder"
+            android:textColor="@color/deskclock_background"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/summaryIcon"
+            app:layout_constraintTop_toBottomOf="@id/summaryTitle"
+            tools:text="O alarme disparará em 2 horas e 39 minutos" />
+
+        <TextView
+            android:id="@+id/summaryHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:text="@string/add_alarm_title"
+            android:textAllCaps="true"
+            android:textColor="@color/deskclock_background"
+            android:textSize="11sp"
+            android:letterSpacing="0.08"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/nav_item_background"
+            app:layout_constraintStart_toStartOf="@id/summaryIcon"
+            app:layout_constraintTop_toBottomOf="@id/summaryIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

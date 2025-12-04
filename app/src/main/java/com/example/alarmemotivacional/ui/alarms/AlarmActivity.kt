@@ -28,7 +28,7 @@ class AlarmActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_alarm)
+        setContentView(R.layout.fragment_alarm)
 
         solicitarPermissaoNotificacao()
 

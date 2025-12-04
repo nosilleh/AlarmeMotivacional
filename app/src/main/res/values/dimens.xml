@@ -5,6 +5,11 @@
     <dimen name="deskclock_vertical_gap">12dp</dimen>
     <dimen name="deskclock_card_padding">20dp</dimen>
     <dimen name="deskclock_subtext_spacing">6dp</dimen>
+    <dimen name="deskclock_card_radius">24dp</dimen>
+    <dimen name="deskclock_action_bar_height">64dp</dimen>
+    <dimen name="deskclock_summary_height">168dp</dimen>
+    <dimen name="deskclock_summary_corner">22dp</dimen>
+    <dimen name="deskclock_fab_margin">20dp</dimen>
 
     <dimen name="card_corner_large">24dp</dimen>
     <dimen name="card_corner_circle">36dp</dimen>
